@@ -10,7 +10,7 @@ const Home: FC<{}> = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>ALBOTALK</main>
+      <main>ALBOTALK Landing page</main>
 
       <footer></footer>
     </div>
