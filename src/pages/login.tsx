@@ -7,14 +7,17 @@ const Login: FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = supabase.auth.user();
+  const [session, setSession] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      router.push({ pathname: "/app" });
-    }
-  }, [user]);
+    setSession(supabase.auth.session());
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session.user) router.push({ pathname: "/app" });
+    });
+  }, []);
 
   const handleLogin = async () => {
     try {
