@@ -2,7 +2,7 @@ import { FC } from "react";
 import Head from "next/head";
 import { supabase } from "@/base/config/supabase";
 
-const Home: FC<{}> = () => {
+const App: FC<{}> = () => {
   const user = supabase.auth.user();
 
   return (
@@ -13,11 +13,11 @@ const Home: FC<{}> = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>ALBOTALK Landing page</main>
+      <main>ALBOTALK App</main>
 
       <footer></footer>
     </div>
   );
 };
 
-export default Home;
+export default App;

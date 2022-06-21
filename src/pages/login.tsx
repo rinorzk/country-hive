@@ -3,9 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { supabase } from "@/base/config/supabase";
 
-const Signup: FC<{}> = () => {
+const Login: FC<{}> = () => {
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = supabase.auth.user();
@@ -17,17 +16,13 @@ const Signup: FC<{}> = () => {
     }
   }, [user]);
 
-  const handleSignup = async () => {
+  const handleLogin = async () => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signUp(
-        { email, password },
-        { data: { username }, redirectTo: "http://localhost:3000/login" }
-      );
+      const { error } = await supabase.auth.signIn({ email, password });
       if (error) throw error;
-      alert(
-        "Thank you for signing up! Please check your email for confirmation link."
-      );
+      alert("Check your email for the login link!");
+      router.push({ pathname: "/app" });
     } catch (error) {
       alert(error.error_description || error.message);
     } finally {
@@ -45,15 +40,8 @@ const Signup: FC<{}> = () => {
 
       <main>
         <div>
-          <h2>Sign up for albotalk</h2>
+          <h2>Log in for albotalk</h2>
           <div>
-            <input
-              type="username"
-              required
-              placeholder="Your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
             <input
               type="email"
               required
@@ -68,7 +56,7 @@ const Signup: FC<{}> = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={handleSignup}>Submit</button>
+            <button onClick={handleLogin}>Submit</button>
           </div>
         </div>
       </main>
@@ -78,4 +66,4 @@ const Signup: FC<{}> = () => {
   );
 };
 
-export default Signup;
+export default Login;
