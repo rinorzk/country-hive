@@ -1,14 +1,15 @@
 import { FC, useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { supabase } from "@/base/config/supabase";
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react'
 
 const Signup: FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = supabase.auth.user();
+  const { user } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const Signup: FC<{}> = () => {
   const handleSignup = async () => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signUp(
+      const { error } = await supabaseClient.auth.signUp(
         { email, password },
         { data: { username }, redirectTo: "http://localhost:3000/login" }
       );

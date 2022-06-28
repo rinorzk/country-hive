@@ -1,10 +1,7 @@
 import { FC } from "react";
 import Head from "next/head";
-import { supabase } from "@/base/config/supabase";
 
 const Home: FC<{}> = () => {
-  const user = supabase.auth.user();
-
   return (
     <div>
       <Head>
