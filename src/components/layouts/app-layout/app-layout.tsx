@@ -1,6 +1,7 @@
 import React from "react";
-import AppHeader from "../app-header";
 import SEO from "../seo";
+import AppHeader from "../app-header";
+import Footer from "../footer";
 import { AppLayoutProps } from "./types";
 
 export default function AppLayout({
@@ -13,7 +14,7 @@ export default function AppLayout({
       <SEO title={title} description={description} />
       <AppHeader />
       <main>{children}</main>
-      <footer>FOOTER</footer>
+      <Footer />
     </div>
   );
 }
