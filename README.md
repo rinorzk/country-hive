@@ -1,34 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [country] talk
 
-## Getting Started
+## a place for communities of your country
 
-First, run the development server:
+### project info
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+**Stack:**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Next.js - Frontend and Backend api
+- Supabase - Database and Auth
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+**Folder Structure:**
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    .
+    ├── public                      # static build files
+    ├── src                         # project source code
+    │   ├── __tests__               # unit tests
+    │   ├── assets                  # all constant data (constants, fonts, icons, images, markdown, mocks)
+    │   ├── base                    # base behaviour of the app
+    │   │   ├── config              # any service configuration
+    │   │   ├── styles              # global styles, css-variables, media queries, typography
+    │   │   ├── types               # extending existing types, or adding global types
+    │   │   ├── utils               # useful functionalities shared in app (window size, user scroll)
+    │   │   ├── helpers             # short functions (is browser, cuting strings)
+    │   │   ├── lib                 # all the database functionality (getting data, subscribing for realtime)
+    │   │   └── hooks               # reusable react hooks
+    │   ├── components
+    │   │   ├── elements            # all components that are used at least twice
+    │   │   ├── layouts             # all layout-related components
+    │   │   ├── sections            # pages' sections equivalent (components used once should be nested in it's parent)
+    │   │   └── templates           # templates for pages
+    │   └── pages
+    │       ├── api                 # api routes
+    │       │   └── auth            # auth related route (currently using [...supabase].ts)
+    │       ├── app                 # application pages (community, rooms, posts)
+    |       |   └── index.tsx       # homepage of the app (community showcase)
+    │       ├── _app.tsx            # page initializer
+    │       ├── index.tsx           # landing page of the company
+    │       ├── login.tsx           # login page
+    │       └── signup.tsx          # signup page
+    ├── README.md                   # project docs
+    └── ...
