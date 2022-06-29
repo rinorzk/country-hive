@@ -6,8 +6,8 @@
 
 **Stack:**
 
-- Next.js # Frontend and Backend api
-- Supabase # Database and Auth
+- Next.js - Frontend and Backend api
+- Supabase - Database and Auth
 
 **Folder Structure:**
 
