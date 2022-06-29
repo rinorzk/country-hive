@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 import styles from "./site-header.module.scss";
 
 export default function SiteHeader() {
@@ -7,12 +7,10 @@ export default function SiteHeader() {
     <header>
       <div className={styles.wrapper}>
         <Link href="/">
-          <a className={styles.title}>💬 Albotalks&apos; Landing page</a>
+          <a className={styles.title}>💬 Albotalk&apos;s Landing page</a>
         </Link>
         <Link href="/login">
-          <a>
-            Login
-          </a>
+          <a>Login</a>
         </Link>
       </div>
     </header>

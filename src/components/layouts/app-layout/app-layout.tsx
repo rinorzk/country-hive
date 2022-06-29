@@ -1,17 +1,17 @@
 import React from "react";
+import AppHeader from "../app-header";
 import SEO from "../seo";
-import SiteHeader from "../site-header";
-import { SiteLayoutProps } from "./types";
+import { AppLayoutProps } from "./types";
 
-export default function SiteLayout({
+export default function AppLayout({
   title,
   description,
   children,
-}: SiteLayoutProps) {
+}: AppLayoutProps) {
   return (
     <div>
       <SEO title={title} description={description} />
-      <SiteHeader />
+      <AppHeader />
       <main>{children}</main>
       <footer>FOOTER</footer>
     </div>
