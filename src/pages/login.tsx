@@ -1,5 +1,4 @@
 import { FC, useState, useEffect } from "react";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
