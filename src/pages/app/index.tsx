@@ -1,9 +1,9 @@
-import { FC } from "react";
+import React from "react";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import AppLayout from "@/components/layouts/app-layout";
 
-const App: FC<{ user: User }> = ({ user }) => {
+export default function App({ user }: { user: User }) {
   return (
     <AppLayout title="albotalk - browse through communities of your country">
       <h3>ALBOTALK App</h3>
@@ -20,9 +20,7 @@ const App: FC<{ user: User }> = ({ user }) => {
       </button>
     </AppLayout>
   );
-};
-
-export default App;
+}
 
 export const getServerSideProps = withPageAuth({
   redirectTo: "/login",
