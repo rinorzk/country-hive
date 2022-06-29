@@ -33,25 +33,23 @@ export default function Login() {
 
   return (
     <SiteLayout title="albotalk - login">
+      <h2>Log in for albotalk</h2>
       <div>
-        <h2>Log in for albotalk</h2>
-        <div>
-          <input
-            type="email"
-            required
-            placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            required
-            placeholder="Your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleLogin}>Submit</button>
-        </div>
+        <input
+          type="email"
+          required
+          placeholder="Your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          required
+          placeholder="Your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleLogin}>Submit</button>
       </div>
     </SiteLayout>
   );

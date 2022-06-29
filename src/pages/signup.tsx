@@ -38,32 +38,30 @@ export default function Signup() {
 
   return (
     <SiteLayout title="albotalk - signup">
+      <h2>Sign up for albotalk</h2>
       <div>
-        <h2>Sign up for albotalk</h2>
-        <div>
-          <input
-            type="username"
-            required
-            placeholder="Your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="email"
-            required
-            placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            required
-            placeholder="Your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button onClick={handleSignup}>Submit</button>
-        </div>
+        <input
+          type="username"
+          required
+          placeholder="Your username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="email"
+          required
+          placeholder="Your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          required
+          placeholder="Your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleSignup}>Submit</button>
       </div>
     </SiteLayout>
   );
