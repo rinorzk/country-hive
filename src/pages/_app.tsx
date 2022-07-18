@@ -7,6 +7,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider supabaseClient={supabaseClient}>
       <Component {...pageProps} />
+      <div id="react-modals" />
     </UserProvider>
   );
 }
