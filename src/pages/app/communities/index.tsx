@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
+import { useCommunity } from "@/base/lib/community";
 
 export default function Communities({ user }: { user: User }) {
   const [createModalOpen, setCreateModalOpen] = useState(false);
+
+  const { communities } = useCommunity({});
+
+  // console.log("communities", communities);
+  // console.log("user", user);
 
   return (
     <AppLayout title="albotalk - browse through communities of your country">
@@ -16,6 +22,12 @@ export default function Communities({ user }: { user: User }) {
       </button>
 
       <h4>List of all communities:</h4>
+      <div>
+        {!!communities.length &&
+          communities.map((community) => (
+            <p key={community.id}>{community.name}</p>
+          ))}
+      </div>
 
       <NewCommunityModal
         isOpen={createModalOpen}

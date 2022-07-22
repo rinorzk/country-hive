@@ -1,3 +1,4 @@
+import { addCommunity } from "@/base/lib/community";
 import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
 import styles from "./new-community-modal.module.scss";
@@ -21,10 +22,13 @@ export default function NewCommunityModal({
   const [name, setName] = useState("");
   const [type, setType] = useState("public");
 
-  const handleAddCommunity = (e: FormEvent) => {
+  const handleAddCommunity = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("name", name);
-    console.log("type", type);
+    try {
+      addCommunity(name, type, []);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   return (
@@ -33,6 +37,7 @@ export default function NewCommunityModal({
       style={customStyles}
       onRequestClose={onClose}
       shouldCloseOnOverlayClick
+      ariaHideApp={false}
     >
       <h3>Create new community</h3>
       <form onSubmit={handleAddCommunity}>
