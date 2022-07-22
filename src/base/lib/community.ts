@@ -15,14 +15,12 @@ export const useCommunity = (props) => {
   useEffect(() => {
     const previousSubscriptions = supabaseClient.getSubscriptions();
 
+    // TODO: check for the community subscription
     if (previousSubscriptions.length > 0) return;
 
     const communityListener = supabaseClient
       .from("communities")
-      .on("INSERT", (payload) => {
-        handleNewCommunity(payload.new);
-        console.log("test", payload);
-      })
+      .on("INSERT", (payload) => handleNewCommunity(payload.new))
       .subscribe((status) => {
         console.log("status", status);
       });
@@ -60,12 +58,13 @@ export const getCommunities = async (
 export const addCommunity = async (
   name: string,
   type: string,
-  members: any[]
+  members: any[],
+  userId: string
 ) => {
   try {
     let { body } = await supabaseClient
       .from<Community>("communities")
-      .insert({ name, type, members, creator_id: "122" });
+      .insert({ name, type, members, creator_id: userId });
     return body;
   } catch (error) {
     console.log("error", error, "test");

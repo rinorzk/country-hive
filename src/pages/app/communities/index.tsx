@@ -6,11 +6,7 @@ import { useCommunity } from "@/base/lib/community";
 
 export default function Communities({ user }: { user: User }) {
   const [createModalOpen, setCreateModalOpen] = useState(false);
-
   const { communities } = useCommunity({});
-
-  // console.log("communities", communities);
-  // console.log("user", user);
 
   return (
     <AppLayout title="albotalk - browse through communities of your country">
@@ -32,6 +28,7 @@ export default function Communities({ user }: { user: User }) {
       <NewCommunityModal
         isOpen={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
+        userId={user.id}
       />
     </AppLayout>
   );

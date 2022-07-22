@@ -18,6 +18,7 @@ const customStyles = {
 export default function NewCommunityModal({
   isOpen,
   onClose,
+  userId,
 }: NewCommunityModalProps) {
   const [name, setName] = useState("");
   const [type, setType] = useState("public");
@@ -25,7 +26,7 @@ export default function NewCommunityModal({
   const handleAddCommunity = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      addCommunity(name, type, []);
+      addCommunity(name, type, [], userId);
     } catch (error) {
       console.log("error", error);
     }
