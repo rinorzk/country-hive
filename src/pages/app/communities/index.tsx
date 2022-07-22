@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Link from "next/link";
+import kebabCase from "lodash/kebabCase";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
@@ -21,7 +23,12 @@ export default function Communities({ user }: { user: User }) {
       <div>
         {!!communities.length &&
           communities.map((community) => (
-            <p key={community.id}>{community.name}</p>
+            <Link
+              key={community.id}
+              href={`/app/communities/${kebabCase(community.name)}`}
+            >
+              <a>{community.name}</a>
+            </Link>
           ))}
       </div>
 
