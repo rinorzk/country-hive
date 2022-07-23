@@ -21,9 +21,7 @@ export const useCommunity = (props) => {
     const communityListener = supabaseClient
       .from("communities")
       .on("INSERT", (payload) => handleNewCommunity(payload.new))
-      .subscribe((status) => {
-        console.log("status", status);
-      });
+      .subscribe();
 
     return () => {
       communityListener.unsubscribe();
