@@ -1,8 +1,9 @@
 import React from "react";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import AppLayout from "@/components/layouts/app-layout";
 import Link from "next/link";
+import AppLayout from "@/components/layouts/app-layout";
+import countries from "@/assets/mock/countries";
 
 export default function App({ user }: { user: User }) {
   return (
@@ -10,9 +11,21 @@ export default function App({ user }: { user: User }) {
       <h3>ALBOTALK App</h3>
       <p>{user.email}</p>
 
-      <Link href="/app/communities" passHref>
-        <a>Go to communities</a>
-      </Link>
+      <h4>Browse all countries and check their communities</h4>
+      <ul>
+        {countries.europe.map((country) => (
+          <li key={country.name}>
+            <Link
+              href={`/app/${country.name.toLowerCase()}/communities`}
+              passHref
+            >
+              <a>
+                {country.flag} {country.name}
+              </a>
+            </Link>
+          </li>
+        ))}
+      </ul>
 
       <br />
 
