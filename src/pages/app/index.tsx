@@ -15,10 +15,7 @@ export default function App({ user }: { user: User }) {
       <ul>
         {countries.europe.map((country) => (
           <li key={country.name}>
-            <Link
-              href={`/app/${country.name.toLowerCase()}/communities`}
-              passHref
-            >
+            <Link href={`/app/${country.name.toLowerCase()}/`} passHref>
               <a>
                 {country.flag} {country.name}
               </a>
