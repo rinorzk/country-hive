@@ -46,7 +46,7 @@ export const getCommunities = async (
   try {
     let { body } = await supabaseClient
       .from<Community>("communities")
-      .select("*")
+      .select("id, name")
       .eq("country", country);
     if (setState) setState(body);
     return body;
@@ -68,6 +68,6 @@ export const addCommunity = async (
       .insert({ name, type, members, creator_id: userId, country });
     return body;
   } catch (error) {
-    console.log("error", error, "test");
+    console.log("error", error);
   }
 };
