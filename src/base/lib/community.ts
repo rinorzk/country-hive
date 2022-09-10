@@ -3,13 +3,13 @@ import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import { Community } from "../types/db";
 
-export const useCommunity = (props) => {
+export const useCommunity = ({ country }: { country: string }) => {
   const [communities, setCommunities] = useState<Community[]>([]);
   const [newCommunity, handleNewCommunity] = useState(null);
   const { user } = useUser();
 
   useEffect(() => {
-    if (user) getCommunities(setCommunities);
+    if (user) getCommunities(country, setCommunities);
   }, [user]);
 
   useEffect(() => {
@@ -40,12 +40,14 @@ export const useCommunity = (props) => {
 };
 
 export const getCommunities = async (
+  country: string,
   setState: Dispatch<SetStateAction<Community[]>>
 ) => {
   try {
     let { body } = await supabaseClient
       .from<Community>("communities")
-      .select("*");
+      .select("id, name")
+      .eq("country", country);
     if (setState) setState(body);
     return body;
   } catch (error) {
@@ -57,14 +59,15 @@ export const addCommunity = async (
   name: string,
   type: string,
   members: any[],
-  userId: string
+  userId: string,
+  country: string
 ) => {
   try {
     let { body } = await supabaseClient
       .from<Community>("communities")
-      .insert({ name, type, members, creator_id: userId });
+      .insert({ name, type, members, creator_id: userId, country });
     return body;
   } catch (error) {
-    console.log("error", error, "test");
+    console.log("error", error);
   }
 };

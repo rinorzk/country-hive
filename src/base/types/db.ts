@@ -5,4 +5,5 @@ export type Community = {
   members: any[]; // to fix later when creating member type
   type: string;
   creator_id: string;
+  country: string;
 };
