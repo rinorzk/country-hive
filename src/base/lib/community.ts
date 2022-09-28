@@ -58,14 +58,13 @@ export const getCommunities = async (
 export const addCommunity = async (
   name: string,
   type: string,
-  members: any[],
   userId: string,
   country: string
 ) => {
   try {
     let { body } = await supabaseClient
       .from<Community>("communities")
-      .insert({ name, type, members, creator_id: userId, country });
+      .insert({ name, type, creator_id: userId, country });
     return body;
   } catch (error) {
     console.log("error", error);

@@ -27,7 +27,7 @@ export default function NewCommunityModal({
   const handleAddCommunity = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      addCommunity(name, type, [], userId, country);
+      addCommunity(name, type, userId, country);
     } catch (error) {
       console.log("error", error);
     }
