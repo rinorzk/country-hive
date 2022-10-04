@@ -22,8 +22,8 @@ export const getServerSideProps = withPageAuth({
   redirectTo: "/login",
   async getServerSideProps(ctx) {
     const { user } = await getUser(ctx);
-    const communityName = ctx.params.community;
-    const country = ctx.params.country;
+    const communityName = ctx.params.community as string;
+    const country = ctx.params.country as string;
     let props = { user };
 
     if (communityName) {
