@@ -1,6 +1,5 @@
 import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
-import { addCommunity } from "@/base/lib/community";
 import styles from "./new-community-modal.module.scss";
 import { NewCommunityModalProps } from "./types";
 
@@ -20,6 +19,7 @@ export default function NewCommunityModal({
   onClose,
   userId,
   country,
+  handleNewCommunity
 }: NewCommunityModalProps) {
   const [name, setName] = useState("");
   const [type, setType] = useState("public");
@@ -27,7 +27,7 @@ export default function NewCommunityModal({
   const handleAddCommunity = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      addCommunity(name, type, userId, country);
+      handleNewCommunity({ name, type, creator_id: userId, country });
     } catch (error) {
       console.log("error", error);
     }

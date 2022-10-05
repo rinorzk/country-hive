@@ -1,3 +1,4 @@
+// Deprecated
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";

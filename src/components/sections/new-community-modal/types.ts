@@ -3,4 +3,5 @@ export type NewCommunityModalProps = {
   onClose: () => void;
   userId: string;
   country: string;
+  handleNewCommunity: (community) => void
 };
