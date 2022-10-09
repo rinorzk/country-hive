@@ -4,6 +4,7 @@ import {
   getUser,
   supabaseClient,
   supabaseServerClient,
+  User,
   withPageAuth,
 } from "@supabase/auth-helpers-nextjs";
 import { Community as CommunityType, Member } from "@/base/types/db";
@@ -12,15 +13,25 @@ import AppLayout from "@/components/layouts/app-layout";
 export default function Community({
   community,
   member,
+  user,
 }: {
   community: CommunityType;
+  member: Member | null;
+  user: User;
 }) {
   console.log("member", member);
 
   const handleJoinCommunity = async () => {
     const { data, status } = await supabaseClient
       .from<Member>("community_members")
-      .insert({}, { returning: "minimal" });
+      .insert(
+        {
+          community_id: community.id,
+          member_id: user.id,
+          approved: community.type === "public",
+        },
+        { returning: "minimal" }
+      );
     console.log("TEST");
   };
 
@@ -29,7 +40,7 @@ export default function Community({
       <h4>Community: {community.name}</h4>
       <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
       <p>Created by: {community.creator_id}</p>
-      <button onClick={handleJoinCommunity}>Join Community</button>
+      {!member && <button onClick={handleJoinCommunity}>Join Community</button>}
     </AppLayout>
   );
 }
@@ -55,11 +66,8 @@ export const getServerSideProps = withPageAuth({
         .eq("community_id", community[0].id)
         .eq("member_id", user.id);
 
-      console.log("community[0].id", community[0].id);
-      console.log("user.id", user.id);
-
       return {
-        props: { ...props, community: community[0], member: member[0] },
+        props: { ...props, community: community[0], member: member[0] || null },
       };
     }
 

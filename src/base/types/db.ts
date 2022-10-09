@@ -2,7 +2,7 @@ export type Community = {
   id: string;
   name: string;
   created_at: string;
-  type: string;
+  type: "public" | "restricted" | "private";
   creator_id: string;
   country: string;
 };
