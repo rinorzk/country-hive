@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import {
   getUser,
@@ -19,7 +19,7 @@ export default function Community({
   member: Member | null;
   user: User;
 }) {
-  console.log("member", member);
+  const [userMember, setUserMember] = useState<Member>(member);
 
   const handleJoinCommunity = async () => {
     const { data, status } = await supabaseClient
@@ -32,7 +32,14 @@ export default function Community({
         },
         { returning: "minimal" }
       );
-    console.log("TEST");
+    if (status === 201) {
+      setUserMember({
+        community_id: community.id,
+        member_id: user.id,
+        approved: community.type === "public",
+        created_at: "",
+      });
+    }
   };
 
   return (
@@ -40,7 +47,9 @@ export default function Community({
       <h4>Community: {community.name}</h4>
       <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
       <p>Created by: {community.creator_id}</p>
-      {!member && <button onClick={handleJoinCommunity}>Join Community</button>}
+      {!userMember && (
+        <button onClick={handleJoinCommunity}>Join Community</button>
+      )}
     </AppLayout>
   );
 }
