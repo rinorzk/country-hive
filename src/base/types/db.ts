@@ -13,3 +13,11 @@ export type Member = {
   created_at: string;
   approved: boolean;
 };
+
+export type NewCommunity = {
+  name: string;
+  country: string;
+  type: "public" | "restricted" | "private";
+  creator_id: string;
+  created_at: string;
+};

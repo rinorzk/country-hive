@@ -19,10 +19,12 @@ export default function NewCommunityModal({
   onClose,
   userId,
   country,
-  handleNewCommunity
+  handleNewCommunity,
 }: NewCommunityModalProps) {
   const [name, setName] = useState("");
-  const [type, setType] = useState("public");
+  const [type, setType] = useState<"public" | "restricted" | "private">(
+    "public"
+  );
 
   const handleAddCommunity = async (e: FormEvent) => {
     e.preventDefault();

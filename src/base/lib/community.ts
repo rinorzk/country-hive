@@ -1,73 +1,94 @@
-// Deprecated
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { useUser } from "@supabase/auth-helpers-react";
-import { Community } from "../types/db";
+import React from "react";
+import {
+  supabaseClient,
+  supabaseServerClient,
+} from "@supabase/auth-helpers-nextjs";
+import { Community, NewCommunity } from "../types/db";
+import { GetServerSidePropsContext, PreviewData } from "next";
+import { ParsedUrlQuery } from "querystring";
 
-export const useCommunity = ({ country }: { country: string }) => {
-  const [communities, setCommunities] = useState<Community[]>([]);
-  const [newCommunity, handleNewCommunity] = useState(null);
-  const { user } = useUser();
+// export const useCommunity = ({ country }: { country: string }) => {
+//   const [communities, setCommunities] = useState<Community[]>([]);
+//   const [newCommunity, handleNewCommunity] = useState(null);
+//   const { user } = useUser();
 
-  useEffect(() => {
-    if (user) getCommunities(country, setCommunities);
-  }, [user]);
+//   useEffect(() => {
+//     if (user) getCommunities(country, setCommunities);
+//   }, [user]);
 
-  useEffect(() => {
-    const previousSubscriptions = supabaseClient.getSubscriptions();
+//   useEffect(() => {
+//     const previousSubscriptions = supabaseClient.getSubscriptions();
 
-    // TODO: check for the community subscription
-    if (previousSubscriptions.length > 0) return;
+//     // TODO: check for the community subscription
+//     if (previousSubscriptions.length > 0) return;
 
-    const communityListener = supabaseClient
-      .from("communities")
-      .on("INSERT", (payload) => handleNewCommunity(payload.new))
-      .subscribe();
+//     const communityListener = supabaseClient
+//       .from("communities")
+//       .on("INSERT", (payload) => handleNewCommunity(payload.new))
+//       .subscribe();
 
-    return () => {
-      communityListener.unsubscribe();
-    };
-  }, []);
+//     return () => {
+//       communityListener.unsubscribe();
+//     };
+//   }, []);
 
-  useEffect(() => {
-    if (newCommunity) {
-      setCommunities(communities.concat(newCommunity));
-    }
-  }, [newCommunity]);
+//   useEffect(() => {
+//     if (newCommunity) {
+//       setCommunities(communities.concat(newCommunity));
+//     }
+//   }, [newCommunity]);
 
-  return {
-    communities,
-  };
+//   return {
+//     communities,
+//   };
+// };
+
+// export const getCommunities = async (
+//   country: string,
+//   setState: Dispatch<SetStateAction<Community[]>>
+// ) => {
+//   try {
+//     let { body } = await supabaseClient
+//       .from<Community>("communities")
+//       .select("id, name")
+//       .eq("country", country);
+//     if (setState) setState(body);
+//     return body;
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// };
+
+export const addCommunity = async (community: NewCommunity) => {
+  const { data, status } = await supabaseClient
+    .from<Community>("communities")
+    .insert(community);
+
+  return { data, status };
 };
 
-export const getCommunities = async (
-  country: string,
-  setState: Dispatch<SetStateAction<Community[]>>
-) => {
-  try {
-    let { body } = await supabaseClient
-      .from<Community>("communities")
-      .select("id, name")
-      .eq("country", country);
-    if (setState) setState(body);
-    return body;
-  } catch (error) {
-    console.log("error", error);
-  }
-};
-
-export const addCommunity = async (
-  name: string,
-  type: string,
-  userId: string,
+export const getAllCommunities = async (
+  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
   country: string
 ) => {
-  try {
-    let { body } = await supabaseClient
-      .from<Community>("communities")
-      .insert({ name, type, creator_id: userId, country });
-    return body;
-  } catch (error) {
-    console.log("error", error);
-  }
+  const { data, status } = await supabaseServerClient(ctx)
+    .from<Community>("communities")
+    .select("name, id")
+    .eq("country", country);
+
+  return { data, status };
+};
+
+export const getCommunityServer = async (
+  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  communityName: string,
+  country: string
+) => {
+  const { data, status } = await supabaseServerClient(ctx)
+    .from<Community>("communities")
+    .select("*")
+    .eq("name", communityName)
+    .eq("country", country);
+
+  return { data, status };
 };

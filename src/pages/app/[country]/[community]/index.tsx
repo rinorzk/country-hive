@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import moment from "moment";
-import {
-  getUser,
-  supabaseClient,
-  supabaseServerClient,
-  User,
-  withPageAuth,
-} from "@supabase/auth-helpers-nextjs";
+import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community as CommunityType, Member } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
+import {
+  addMemberInCommunity,
+  getCommunityMemberServer,
+} from "@/base/lib/members";
+import { getCommunityServer } from "@/base/lib/community";
 
 export default function Community({
   community,
@@ -22,23 +21,16 @@ export default function Community({
   const [userMember, setUserMember] = useState<Member>(member);
 
   const handleJoinCommunity = async () => {
-    const { data, status } = await supabaseClient
-      .from<Member>("community_members")
-      .insert(
-        {
-          community_id: community.id,
-          member_id: user.id,
-          approved: community.type === "public",
-        },
-        { returning: "minimal" }
-      );
+    const communityMember = {
+      community_id: community.id,
+      member_id: user.id,
+      approved: community.type === "public",
+      created_at: "",
+    };
+
+    const { status } = await addMemberInCommunity(communityMember);
     if (status === 201) {
-      setUserMember({
-        community_id: community.id,
-        member_id: user.id,
-        approved: community.type === "public",
-        created_at: "",
-      });
+      setUserMember(communityMember);
     }
   };
 
@@ -63,17 +55,17 @@ export const getServerSideProps = withPageAuth({
     let props = { user };
 
     if (communityName) {
-      const { body: community } = await supabaseServerClient(ctx)
-        .from<CommunityType>("communities")
-        .select("*")
-        .eq("name", communityName)
-        .eq("country", country);
+      const { data: community } = await getCommunityServer(
+        ctx,
+        communityName,
+        country
+      );
 
-      const { body: member } = await supabaseServerClient(ctx)
-        .from<Member>("community_members")
-        .select("*")
-        .eq("community_id", community[0].id)
-        .eq("member_id", user.id);
+      const { data: member } = await getCommunityMemberServer(
+        ctx,
+        community[0].id,
+        user.id
+      );
 
       return {
         props: { ...props, community: community[0], member: member[0] || null },
