@@ -10,7 +10,7 @@ export type Community = {
 export type Member = {
   community_id: string;
   member_id: string;
-  created_at: string;
+  created_at?: string;
   approved: boolean;
 };
 
