@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import kebabCase from "lodash/kebabCase";
-import { getUser, supabaseClient, supabaseServerClient, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import {
+  getUser,
+  supabaseClient,
+  supabaseServerClient,
+  User,
+  withPageAuth,
+} from "@supabase/auth-helpers-nextjs";
 import { Community } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
@@ -9,20 +15,23 @@ import NewCommunityModal from "@/components/sections/new-community-modal";
 export default function Country({
   country,
   user,
-  communities
+  communities,
 }: {
   country: string;
   user: User;
-  communities: Community[]
+  communities: Community[];
 }) {
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [communitiesList, setCommunitiesList] = useState(communities)
+  const [communitiesList, setCommunitiesList] =
+    useState<Community[]>(communities);
 
-  const handleNewCommunity = async (newCommunity) => {
-    const { data, status } = await supabaseClient.from<Community>('communities').insert(newCommunity, { returning: 'minimal' })
+  const handleNewCommunity = async (newCommunity: Community) => {
+    const { data, status } = await supabaseClient
+      .from<Community>("communities")
+      .insert(newCommunity, { returning: "minimal" });
 
-    if (status === 201) setCommunitiesList((prev) => ([...prev, newCommunity]))
-  }
+    if (status === 201) setCommunitiesList((prev) => [...prev, newCommunity]);
+  };
 
   return (
     <AppLayout title={`${country.toUpperCase()} - Communities`}>
