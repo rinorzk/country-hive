@@ -21,3 +21,12 @@ export type NewCommunity = {
   creator_id: string;
   created_at: string;
 };
+
+export type Post = {
+  id: string
+  community_id: string
+  creator_id: string
+  title: string
+  description: string
+  created_at: string
+}
