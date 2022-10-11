@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community, Post } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
 import { getCommunityPostsServer } from "@/base/lib/posts";
+import NewPostModal from "@/components/sections/new-post-modal";
 
 export default function Posts({
   user,
@@ -14,11 +15,22 @@ export default function Posts({
   community: Community;
   posts: Post[];
 }) {
-  console.log("posts", posts);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
+
+  const handleNewPost = () => {};
 
   return (
     <AppLayout title={`${community.name} - Posts`}>
       <h4>Checkout posts</h4>
+      <button onClick={() => setCreateModalOpen(true)}>Create post</button>
+
+      <NewPostModal
+        isOpen={createModalOpen}
+        onClose={() => setCreateModalOpen(false)}
+        userId={user.id}
+        communityId={community.id}
+        handleNewPost={handleNewPost}
+      />
     </AppLayout>
   );
 }
