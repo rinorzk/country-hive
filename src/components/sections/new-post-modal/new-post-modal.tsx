@@ -1,18 +1,8 @@
 import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
+import { customModalStyles } from "@/base/styles/modal-style";
 import styles from "./new-post-modal.module.scss";
 import { NewPostModalProps } from "./types";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
 
 export default function NewPostModal({
   isOpen,
@@ -41,7 +31,7 @@ export default function NewPostModal({
   return (
     <Modal
       isOpen={isOpen}
-      style={customStyles}
+      style={customModalStyles}
       onRequestClose={onClose}
       shouldCloseOnOverlayClick
       ariaHideApp={false}
