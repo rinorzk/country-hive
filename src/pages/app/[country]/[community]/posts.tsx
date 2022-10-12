@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import kebabCase from "lodash/kebabCase";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community, Post } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
 import { addCommunityPost, getCommunityPostsServer } from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import kebabCase from "lodash/kebabCase";
 import { NewPost } from "@/base/types/app";
 
 export default function Posts({
