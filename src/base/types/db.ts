@@ -27,7 +27,7 @@ export type Post = {
   community_id: string;
   creator_id: string;
   title: string;
-  description: string;
+  description?: string;
   created_at: string;
 };
 
