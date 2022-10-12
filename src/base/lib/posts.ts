@@ -2,12 +2,11 @@ import {
   supabaseClient,
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
-import { GetServerSidePropsContext, PreviewData } from "next";
-import { ParsedUrlQuery } from "querystring";
 import { NewPost, Post } from "../types/db";
+import { ServerSidePropsCtx } from "../types/app";
 
 export const getCommunityPostsServer = async (
-  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  ctx: ServerSidePropsCtx,
   communityId: string
 ) => {
   const { data, status } = await supabaseServerClient(ctx)

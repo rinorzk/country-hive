@@ -1,10 +1,9 @@
-import { GetServerSidePropsContext, PreviewData } from "next";
-import { ParsedUrlQuery } from "querystring";
 import {
   supabaseClient,
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
 import { Member } from "../types/db";
+import { ServerSidePropsCtx } from "../types/app";
 
 export const addMemberInCommunity = async (member: Member) => {
   const { data, status } = await supabaseClient
@@ -15,7 +14,7 @@ export const addMemberInCommunity = async (member: Member) => {
 };
 
 export const getCommunityMemberServer = async (
-  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  ctx: ServerSidePropsCtx,
   communityId: string,
   userId: string
 ) => {
