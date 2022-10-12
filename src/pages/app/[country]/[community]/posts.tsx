@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import { Community, Post } from "@/base/types/db";
+import { Community, NewPost, Post } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
-import { getCommunityPostsServer } from "@/base/lib/posts";
+import { addCommunityPost, getCommunityPostsServer } from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import kebabCase from "lodash/kebabCase";
 
 export default function Posts({
   user,
@@ -15,14 +18,32 @@ export default function Posts({
   community: Community;
   posts: Post[];
 }) {
+  const [communityPosts, setCommunityPosts] = useState<Post[]>(posts);
   const [createModalOpen, setCreateModalOpen] = useState(false);
+  const { asPath } = useRouter();
 
-  const handleNewPost = () => {};
+  const handleNewPost = async (newPost: NewPost) => {
+    const { data, status } = await addCommunityPost(newPost);
+
+    if (data?.length) setCommunityPosts((prev) => [...prev, ...data]);
+  };
 
   return (
     <AppLayout title={`${community.name} - Posts`}>
       <h4>Checkout posts</h4>
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
+
+      <ul>
+        {communityPosts.length > 0
+          ? communityPosts.map((post) => (
+              <li key={post.id}>
+                <Link key={post.id} href={`${asPath}/${kebabCase(post.title)}`}>
+                  <a>{post.title}</a>
+                </Link>
+              </li>
+            ))
+          : null}
+      </ul>
 
       <NewPostModal
         isOpen={createModalOpen}
