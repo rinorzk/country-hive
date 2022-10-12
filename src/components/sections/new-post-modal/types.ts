@@ -1,4 +1,4 @@
-import { NewPost } from "@/base/types/db";
+import { NewPost } from "@/base/types/app";
 
 export type NewPostModalProps = {
   isOpen: boolean;

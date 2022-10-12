@@ -2,8 +2,8 @@ import {
   supabaseClient,
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
-import { NewPost, Post } from "../types/db";
-import { ServerSidePropsCtx } from "../types/app";
+import { Post } from "../types/db";
+import { NewPost, ServerSidePropsCtx } from "../types/app";
 
 export const getCommunityPostsServer = async (
   ctx: ServerSidePropsCtx,
