@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import moment from "moment";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community as CommunityType, Member } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
@@ -19,6 +21,7 @@ export default function Community({
   user: User;
 }) {
   const [userMember, setUserMember] = useState<Member>(member);
+  const { asPath } = useRouter();
 
   const handleJoinCommunity = async () => {
     const communityMember = {
@@ -38,6 +41,8 @@ export default function Community({
       <h4>Community: {community.name}</h4>
       <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
       <p>Created by: {community.creator_id}</p>
+      <h5>Checkout posts</h5>
+      <Link href={`${asPath}/posts`}>posts</Link>
       {!userMember && (
         <button onClick={handleJoinCommunity}>Join Community</button>
       )}

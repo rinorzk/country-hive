@@ -1,11 +1,9 @@
-import React from "react";
 import {
   supabaseClient,
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
 import { Community, NewCommunity } from "../types/db";
-import { GetServerSidePropsContext, PreviewData } from "next";
-import { ParsedUrlQuery } from "querystring";
+import { ServerSidePropsCtx } from "../types/app";
 
 // export const useCommunity = ({ country }: { country: string }) => {
 //   const [communities, setCommunities] = useState<Community[]>([]);
@@ -68,7 +66,7 @@ export const addCommunity = async (community: NewCommunity) => {
 };
 
 export const getAllCommunities = async (
-  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  ctx: ServerSidePropsCtx,
   country: string
 ) => {
   const { data, status } = await supabaseServerClient(ctx)
@@ -80,7 +78,7 @@ export const getAllCommunities = async (
 };
 
 export const getCommunityServer = async (
-  ctx: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  ctx: ServerSidePropsCtx,
   communityName: string,
   country: string
 ) => {

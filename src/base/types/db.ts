@@ -14,10 +14,11 @@ export type Member = {
   approved: boolean;
 };
 
-export type NewCommunity = {
-  name: string;
-  country: string;
-  type: "public" | "restricted" | "private";
+export type Post = {
+  id: string;
+  community_id: string;
   creator_id: string;
+  title: string;
+  description?: string;
   created_at: string;
 };
