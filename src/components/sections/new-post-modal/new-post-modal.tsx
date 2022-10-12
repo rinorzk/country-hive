@@ -57,14 +57,14 @@ export default function NewPostModal({
           required
         />
         <br />
-        <label htmlFor="description">Title:</label>
+        <label htmlFor="description">Description:</label>
         <textarea
           id="description"
-          placeholder="Post title"
+          placeholder="Post description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
         />
+        <button type="submit">Create post</button>
       </form>
     </Modal>
   );
