@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import kebabCase from "lodash/kebabCase";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community, Post } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
@@ -38,7 +37,7 @@ export default function Posts({
         {communityPosts.length > 0
           ? communityPosts.map((post) => (
               <li key={post.id}>
-                <Link key={post.id} href={`${asPath}/${kebabCase(post.title)}`}>
+                <Link key={post.id} href={`${asPath}/${post.slug}`}>
                   <a>{post.title}</a>
                 </Link>
               </li>

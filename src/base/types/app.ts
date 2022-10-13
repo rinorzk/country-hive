@@ -12,6 +12,7 @@ export type NewCommunity = {
   type: "public" | "restricted" | "private";
   creator_id: string;
   created_at?: string;
+  slug: string;
 };
 
 export type NewPost = {
@@ -20,4 +21,5 @@ export type NewPost = {
   title: string;
   description: string;
   created_at?: string;
+  slug: string;
 };

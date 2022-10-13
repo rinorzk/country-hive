@@ -71,7 +71,7 @@ export const getAllCommunities = async (
 ) => {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Community>("communities")
-    .select("name, id")
+    .select("name, id, slug")
     .eq("country", country);
 
   return { data, status };
@@ -79,13 +79,13 @@ export const getAllCommunities = async (
 
 export const getCommunityServer = async (
   ctx: ServerSidePropsCtx,
-  communityName: string,
+  communitySlug: string,
   country: string
 ) => {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Community>("communities")
     .select("*")
-    .eq("name", communityName)
+    .eq("slug", communitySlug)
     .eq("country", country);
 
   return { data, status };

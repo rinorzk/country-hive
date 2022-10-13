@@ -1,4 +1,4 @@
-import { NewCommunity } from "@/base/types/db";
+import { NewCommunity } from "@/base/types/app";
 
 export type NewCommunityModalProps = {
   isOpen: boolean;
