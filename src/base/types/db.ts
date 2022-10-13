@@ -5,6 +5,7 @@ export type Community = {
   type: "public" | "restricted" | "private";
   creator_id: string;
   country: string;
+  slug: string;
 };
 
 export type Member = {
@@ -21,4 +22,5 @@ export type Post = {
   title: string;
   description?: string;
   created_at: string;
+  slug: string;
 };

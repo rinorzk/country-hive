@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
+import kebabCase from "lodash/kebabCase";
 import { customModalStyles } from "@/base/styles/modal-style";
 import styles from "./new-post-modal.module.scss";
 import { NewPostModalProps } from "./types";
@@ -22,6 +23,7 @@ export default function NewPostModal({
         description,
         creator_id: userId,
         community_id: communityId,
+        slug: kebabCase(title),
       });
     } catch (error) {
       console.log("error", error);

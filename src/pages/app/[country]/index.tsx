@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import kebabCase from "lodash/kebabCase";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import { Community, NewCommunity } from "@/base/types/db";
+import { Community } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
 import { addCommunity, getAllCommunities } from "@/base/lib/community";
+import { NewCommunity } from "@/base/types/app";
 
 export default function Country({
   country,
@@ -35,7 +36,7 @@ export default function Country({
             <li key={cmt.id}>
               <Link
                 key={cmt.id}
-                href={`/app/${kebabCase(country)}/${cmt.name}`}
+                href={`/app/${kebabCase(country)}/${cmt.slug}`}
               >
                 <a>{cmt.name}</a>
               </Link>
