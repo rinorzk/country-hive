@@ -24,3 +24,13 @@ export type Post = {
   created_at: string;
   slug: string;
 };
+
+export type Room = {
+  id: string;
+  community_id: string;
+  creator_id: string;
+  title: string;
+  description?: string;
+  created_at: string;
+  slug: string;
+};

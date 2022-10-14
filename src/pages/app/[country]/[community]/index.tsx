@@ -43,6 +43,8 @@ export default function Community({
       <p>Created by: {community.creator_id}</p>
       <h5>Checkout posts</h5>
       <Link href={`${asPath}/posts`}>posts</Link>
+      <br />
+      <Link href={`${asPath}/rooms`}>rooms</Link>
       {!userMember && (
         <button onClick={handleJoinCommunity}>Join Community</button>
       )}
