@@ -18,7 +18,9 @@ export const getCommunityRoomsServer = async (
 };
 
 export const addCommunityRoom = async (room: NewRoom) => {
-  const { data, status } = await supabaseClient.from<Room>("room").insert(room);
+  const { data, status } = await supabaseClient
+    .from<Room>("rooms")
+    .insert(room);
 
   return { data, status };
 };
