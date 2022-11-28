@@ -1,37 +1,12 @@
-import React, { FormEvent, useEffect, useState } from "react";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import { addRoomMessage, getRoomMessages } from "@/base/lib/messages";
+import React, { FormEvent, useState } from "react";
+import { addRoomMessage } from "@/base/lib/messages";
 import { RoomMessage } from "@/base/types/db";
+import { useRoomMessages } from "@/base/hooks/useRoomMessages";
 import { RoomChatProps } from "./types";
 
 export default function RoomChat({ roomId, userId }: RoomChatProps) {
-  const [messages, setMessages] = useState<RoomMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
-
-  async function getRoomMessagesData() {
-    const { data, error } = await getRoomMessages(roomId);
-
-    if (!error) {
-      setMessages(data);
-    }
-  }
-
-  useEffect(() => {
-    getRoomMessagesData();
-  }, []);
-
-  useEffect(() => {
-    const subscription = supabaseClient
-      .from<RoomMessage>("room_messages")
-      .on("INSERT", (payload) => {
-        setMessages((prev) => [...prev, payload.new]);
-      })
-      .subscribe();
-
-    return () => {
-      supabaseClient.removeSubscription(subscription);
-    };
-  }, []);
+  const { messages } = useRoomMessages({ roomId, userId });
 
   function renderMessage(message: RoomMessage) {
     return <li>{message.content}</li>;

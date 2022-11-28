@@ -6,7 +6,8 @@ export async function getRoomMessages(roomId: string) {
   const { data, error } = await supabaseClient
     .from<RoomMessage>("room_messages")
     .select("*, profile: profiles(username)")
-    .eq("room_id", roomId);
+    .eq("room_id", roomId)
+    .order("created_at", { ascending: true });
 
   return { data, error };
 }
