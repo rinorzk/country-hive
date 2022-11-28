@@ -65,7 +65,7 @@ export const addCommunity = async (community: NewCommunity) => {
   return { data, status };
 };
 
-export const getAllCommunities = async (
+export const getAllCommunitiesServer = async (
   ctx: ServerSidePropsCtx,
   country: string
 ) => {

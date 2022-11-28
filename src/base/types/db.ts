@@ -34,3 +34,14 @@ export type Room = {
   created_at: string;
   slug: string;
 };
+
+export type RoomMessage = {
+  id: string;
+  creator_id: string;
+  room_id: string;
+  created_at: string;
+  content: string;
+  profile: {
+    username: string;
+  };
+};
