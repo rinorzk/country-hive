@@ -9,7 +9,7 @@ export default function RoomChat({ roomId, userId }: RoomChatProps) {
   const { messages } = useRoomMessages({ roomId, userId });
 
   function renderMessage(message: RoomMessage) {
-    return <li>{message.content}</li>;
+    return <li key={message.id}>{message.content}</li>;
   }
 
   async function onSubmitMessage(e: FormEvent) {
