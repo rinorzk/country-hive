@@ -1,14 +1,16 @@
 import React from "react";
 import AppLayout from "@/components/layouts/app-layout";
 import { Room as RoomType } from "@/base/types/db";
-import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { getCommunityServer } from "@/base/lib/community";
 import { getCommunityRoomServer } from "@/base/lib/rooms";
+import RoomChat from "@/components/sections/room-chat";
 
-export default function Room({ room }: { room: RoomType }) {
+export default function Room({ room, user }: { room: RoomType; user: User }) {
   return (
     <AppLayout>
       <h4>{room.title}</h4>
+      <RoomChat roomId={room.id} userId={user.id} />
     </AppLayout>
   );
 }
