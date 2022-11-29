@@ -38,3 +38,9 @@ export type NewRoomMessage = {
   creator_id: string;
   content: string;
 };
+
+export type NewPostComment = {
+  post_id: string;
+  creator_id: string;
+  content: string;
+};
