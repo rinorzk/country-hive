@@ -45,3 +45,14 @@ export type RoomMessage = {
     username: string;
   };
 };
+
+export type PostComment = {
+  id: string;
+  creator_id: string;
+  post_id: string;
+  created_at: string;
+  content: string;
+  profile: {
+    username: string;
+  };
+};
