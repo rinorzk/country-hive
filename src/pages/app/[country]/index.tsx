@@ -5,7 +5,7 @@ import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
-import { addCommunity, getAllCommunities } from "@/base/lib/community";
+import { addCommunity, getAllCommunitiesServer } from "@/base/lib/community";
 import { NewCommunity } from "@/base/types/app";
 
 export default function Country({
@@ -65,7 +65,7 @@ export const getServerSideProps = withPageAuth({
     let props = { user };
 
     if (country) {
-      const { data: communities } = await getAllCommunities(ctx, country);
+      const { data: communities } = await getAllCommunitiesServer(ctx, country);
 
       return { props: { ...props, country, communities } };
     }

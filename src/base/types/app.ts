@@ -32,3 +32,15 @@ export type NewRoom = {
   created_at?: string;
   slug: string;
 };
+
+export type NewRoomMessage = {
+  room_id: string;
+  creator_id: string;
+  content: string;
+};
+
+export type NewPostComment = {
+  post_id: string;
+  creator_id: string;
+  content: string;
+};
