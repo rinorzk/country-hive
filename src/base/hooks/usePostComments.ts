@@ -6,7 +6,7 @@ import { getPostComments } from "../lib/comments";
 export function usePostComments({ postId, userId }: PostCommentsProps) {
   const [comments, setComments] = useState<PostComment[]>([]);
 
-  async function getRoomMessagesData() {
+  async function getPostCommentsData() {
     const { data, error } = await getPostComments(postId);
 
     if (!error) {
@@ -16,7 +16,7 @@ export function usePostComments({ postId, userId }: PostCommentsProps) {
 
   useEffect(() => {
     if (postId) {
-      getRoomMessagesData();
+      getPostCommentsData();
     }
   }, [postId]);
 
