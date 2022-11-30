@@ -6,12 +6,10 @@ export default function SiteHeader() {
   return (
     <header>
       <div className={styles.wrapper}>
-        <Link href="/">
-          <a className={styles.title}>💬 Albotalk&apos;s Landing page</a>
+        <Link href="/" className={styles.title}>
+          💬 Albotalk&apos;s Landing page
         </Link>
-        <Link href="/login">
-          <a>Login</a>
-        </Link>
+        <Link href="/login">Login</Link>
       </div>
     </header>
   );

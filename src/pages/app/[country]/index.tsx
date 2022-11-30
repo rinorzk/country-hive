@@ -38,7 +38,7 @@ export default function Country({
                 key={cmt.id}
                 href={`/app/${kebabCase(country)}/${cmt.slug}`}
               >
-                <a>{cmt.name}</a>
+                {cmt.name}
               </Link>
             </li>
           ))}
