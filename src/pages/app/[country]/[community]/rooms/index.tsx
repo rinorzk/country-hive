@@ -38,7 +38,7 @@ export default function Rooms({
           ? communityRooms.map((room) => (
               <li key={room.id}>
                 <Link key={room.id} href={`${asPath}/${room.slug}`}>
-                  <a>{room.title}</a>
+                  {room.title}
                 </Link>
               </li>
             ))

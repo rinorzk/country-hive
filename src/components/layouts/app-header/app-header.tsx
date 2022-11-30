@@ -9,8 +9,8 @@ export default function AppHeader() {
   return (
     <header>
       <div className={styles.wrapper}>
-        <Link href="/app">
-          <a className={styles.title}>💬 Albotalk</a>
+        <Link href="/app" className={styles.title}>
+          💬 Albotalk
         </Link>
         <p>{user?.user_metadata.username}</p>
       </div>

@@ -38,7 +38,7 @@ export default function Posts({
           ? communityPosts.map((post) => (
               <li key={post.id}>
                 <Link key={post.id} href={`${asPath}/${post.slug}`}>
-                  <a>{post.title}</a>
+                  {post.title}
                 </Link>
               </li>
             ))
