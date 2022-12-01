@@ -22,10 +22,12 @@ export default function RoomChat({ roomId, userId }: RoomChatProps) {
       room_id: roomId,
       content: newMessage,
       creator_id: userId,
+      reply_id: messageToReply?.id,
     };
     const { status } = await addRoomMessage(message);
     if (status === 201) {
       setNewMessage("");
+      clearReplyMessage();
     }
   }
 
