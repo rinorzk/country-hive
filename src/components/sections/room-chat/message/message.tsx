@@ -11,7 +11,14 @@ export default function Message(props: MessageProps) {
 
   return (
     <li className={styles.message}>
-      {message?.content} <span onClick={handleReplyTo}>reply</span>
+      <div>
+        {message.replyOf ? (
+          <small>&#8594; {message.replyOf?.content}</small>
+        ) : null}
+      </div>
+      <div style={{ display: "flex" }}>
+        {message?.content} <span onClick={handleReplyTo}>reply</span>
+      </div>
     </li>
   );
 }

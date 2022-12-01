@@ -1,6 +1,12 @@
 .message {
-  display: flex;
   width: 250px;
+  border: 1px solid grey;
+  padding: 2px;
+  margin-bottom: 2px;
+}
+
+.message small {
+  display: block;
 }
 
 .message span {
