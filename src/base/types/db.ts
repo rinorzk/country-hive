@@ -45,7 +45,7 @@ export type RoomMessage = {
   profile: {
     username: string;
   };
-  reply: {
+  replyOf: {
     content: string;
   };
 };
