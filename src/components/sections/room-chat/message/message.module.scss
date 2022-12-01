@@ -1,0 +1,17 @@
+.message {
+  display: flex;
+  width: 250px;
+}
+
+.message span {
+  display: none;
+  margin-left: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.message:hover {
+  span {
+    display: block;
+  }
+}
