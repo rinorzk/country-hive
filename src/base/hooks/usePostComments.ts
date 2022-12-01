@@ -18,7 +18,7 @@ export function usePostComments({ postId, userId }: PostCommentsProps) {
     if (postId) {
       getPostCommentsData();
     }
-  }, [postId]);
+  }, [postId, userId]);
 
   return {
     comments,
