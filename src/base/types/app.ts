@@ -37,6 +37,7 @@ export type NewRoomMessage = {
   room_id: string;
   creator_id: string;
   content: string;
+  reply_id?: string;
 };
 
 export type NewPostComment = {
