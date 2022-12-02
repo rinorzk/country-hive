@@ -28,21 +28,23 @@ export default function Posts({
     if (data?.length) setCommunityPosts((prev) => [...prev, ...data]);
   };
 
+  function renderPostLink(post: Post) {
+    return (
+      <li key={post.id}>
+        <Link key={post.id} href={`${asPath}/${post.slug}`}>
+          {post.title}
+        </Link>
+      </li>
+    );
+  }
+
   return (
     <AppLayout title={`${community.name} - Posts`}>
       <h4>Checkout posts</h4>
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
 
       <ul>
-        {communityPosts.length > 0
-          ? communityPosts.map((post) => (
-              <li key={post.id}>
-                <Link key={post.id} href={`${asPath}/${post.slug}`}>
-                  <a>{post.title}</a>
-                </Link>
-              </li>
-            ))
-          : null}
+        {communityPosts.length > 0 ? communityPosts.map(renderPostLink) : null}
       </ul>
 
       <NewPostModal

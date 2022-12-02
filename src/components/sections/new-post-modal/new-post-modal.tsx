@@ -15,7 +15,7 @@ export default function NewPostModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleAddPost = (e: FormEvent) => {
+  function handleAddPost(e: FormEvent) {
     e.preventDefault();
     try {
       handleNewPost({
@@ -28,7 +28,7 @@ export default function NewPostModal({
     } catch (error) {
       console.log("error", error);
     }
-  };
+  }
 
   return (
     <Modal

@@ -21,27 +21,27 @@ export default function Country({
   const [communitiesList, setCommunitiesList] =
     useState<Community[]>(communities);
 
-  const handleNewCommunity = async (newCommunity: NewCommunity) => {
+  async function handleNewCommunity(newCommunity: NewCommunity) {
     const { status } = await addCommunity(newCommunity);
 
     if (status === 201) setCommunitiesList((prev) => [...prev, newCommunity]);
-  };
+  }
+
+  function renderCommunityLink(cmt: Community) {
+    return (
+      <li key={cmt.id}>
+        <Link key={cmt.id} href={`/app/${kebabCase(country)}/${cmt.slug}`}>
+          {cmt.name}
+        </Link>
+      </li>
+    );
+  }
 
   return (
     <AppLayout title={`${country.toUpperCase()} - Communities`}>
       <h2>Browse {country} communities</h2>
       <ul>
-        {!!communitiesList.length &&
-          communitiesList.map((cmt) => (
-            <li key={cmt.id}>
-              <Link
-                key={cmt.id}
-                href={`/app/${kebabCase(country)}/${cmt.slug}`}
-              >
-                <a>{cmt.name}</a>
-              </Link>
-            </li>
-          ))}
+        {!!communitiesList.length && communitiesList.map(renderCommunityLink)}
       </ul>
 
       <h3>Or create a new one</h3>

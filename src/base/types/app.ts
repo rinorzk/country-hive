@@ -6,6 +6,11 @@ export type ServerSidePropsCtx = GetServerSidePropsContext<
   PreviewData
 >;
 
+export type Country = {
+  name: string;
+  flag: string;
+};
+
 export type NewCommunity = {
   name: string;
   country: string;
@@ -37,6 +42,7 @@ export type NewRoomMessage = {
   room_id: string;
   creator_id: string;
   content: string;
+  reply_id?: string;
 };
 
 export type NewPostComment = {

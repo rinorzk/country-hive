@@ -5,31 +5,31 @@ import {
 import { NewRoom, ServerSidePropsCtx } from "@/base/types/app";
 import { Room } from "@/base/types/db";
 
-export const getCommunityRoomsServer = async (
+export async function getCommunityRoomsServer(
   ctx: ServerSidePropsCtx,
   communityId: string
-) => {
+) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Room>("rooms")
     .select("title, id, slug")
     .eq("community_id", communityId);
 
   return { data, status };
-};
+}
 
-export const addCommunityRoom = async (room: NewRoom) => {
+export async function addCommunityRoom(room: NewRoom) {
   const { data, status } = await supabaseClient
     .from<Room>("rooms")
     .insert(room);
 
   return { data, status };
-};
+}
 
-export const getCommunityRoomServer = async (
+export async function getCommunityRoomServer(
   ctx: ServerSidePropsCtx,
   communityId: string,
   roomSlug: string
-) => {
+) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Room>("rooms")
     .select("*")
@@ -37,4 +37,4 @@ export const getCommunityRoomServer = async (
     .eq("slug", roomSlug);
 
   return { data, status };
-};
+}

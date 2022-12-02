@@ -1,16 +1,19 @@
 import React from "react";
 import AppLayout from "@/components/layouts/app-layout";
+import { useUser } from "@supabase/auth-helpers-react";
+import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Post as PostType } from "@/base/types/db";
-import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { getCommunityServer } from "@/base/lib/community";
 import { getCommunityPostServer } from "@/base/lib/posts";
 import PostComments from "@/components/sections/post-comments";
 
-export default function Post({ post, user }: { post: PostType; user: User }) {
+export default function Post({ post }: { post: PostType }) {
+  const { user } = useUser()
+
   return (
     <AppLayout>
       <h4>{post.title}</h4>
-      <PostComments postId={post.id} userId={user.id} />
+      <PostComments postId={post.id} userId={user?.id} />
     </AppLayout>
   );
 }

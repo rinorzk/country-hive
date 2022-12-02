@@ -32,7 +32,7 @@ export function useRoomMessages({ roomId, userId }: RoomChatProps) {
     if (roomId) {
       getRoomMessagesData();
     }
-  }, [roomId]);
+  }, [roomId, userId]);
 
   return {
     messages,

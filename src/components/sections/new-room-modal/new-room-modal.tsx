@@ -15,7 +15,7 @@ export default function NewRoomModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleAddRoom = (e: FormEvent) => {
+  function handleAddRoom(e: FormEvent) {
     e.preventDefault();
     try {
       handleNewRoom({
@@ -28,7 +28,7 @@ export default function NewRoomModal({
     } catch (error) {
       console.log("error", error);
     }
-  };
+  }
 
   return (
     <Modal
