@@ -17,7 +17,7 @@ export default function NewCommunityModal({
     "public"
   );
 
-  const handleAddCommunity = async (e: FormEvent) => {
+  async function handleAddCommunity(e: FormEvent) {
     e.preventDefault();
     try {
       handleNewCommunity({
@@ -30,7 +30,7 @@ export default function NewCommunityModal({
     } catch (error) {
       console.log("error", error);
     }
-  };
+  }
 
   return (
     <Modal

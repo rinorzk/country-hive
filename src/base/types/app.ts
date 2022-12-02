@@ -6,6 +6,11 @@ export type ServerSidePropsCtx = GetServerSidePropsContext<
   PreviewData
 >;
 
+export type Country = {
+  name: string;
+  flag: string;
+};
+
 export type NewCommunity = {
   name: string;
   country: string;
