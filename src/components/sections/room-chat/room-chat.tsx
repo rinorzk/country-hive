@@ -4,6 +4,7 @@ import { RoomMessage } from "@/base/types/db";
 import { useRoomMessages } from "@/base/hooks/useRoomMessages";
 import { RoomChatProps } from "./types";
 import Message from "./message";
+import MessageFrom from "./message-form";
 
 export default function RoomChat({ roomId, userId }: RoomChatProps) {
   const [newMessage, setNewMessage] = useState("");
@@ -16,7 +17,7 @@ export default function RoomChat({ roomId, userId }: RoomChatProps) {
     );
   }
 
-  async function onSubmitMessage(e: FormEvent) {
+  async function handleSubmitMessage(e: FormEvent) {
     e.preventDefault();
     const message = {
       room_id: roomId,
@@ -37,22 +38,15 @@ export default function RoomChat({ roomId, userId }: RoomChatProps) {
 
   return (
     <div>
-      ROOM CHAT
+      <h3>ROOM CHAT</h3>
       <ul>{messages.length ? messages.map(renderMessage) : null}</ul>
-      <form onSubmit={onSubmitMessage}>
-        {messageToReply ? (
-          <p>
-            &#8594; {messageToReply.content}{" "}
-            <span onClick={clearReplyMessage}>x</span>
-          </p>
-        ) : null}
-        <input
-          type="text"
-          name="message"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-      </form>
+      <MessageFrom
+        newMessage={newMessage}
+        setNewMessage={setNewMessage}
+        messageToReply={messageToReply}
+        clearReplyMessage={clearReplyMessage}
+        onSubmit={handleSubmitMessage}
+      />
     </div>
   );
 }
