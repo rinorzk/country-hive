@@ -23,7 +23,7 @@ export default function Community({
   const [userMember, setUserMember] = useState<Member>(member);
   const { asPath } = useRouter();
 
-  const handleJoinCommunity = async () => {
+  async function handleJoinCommunity() {
     const communityMember = {
       community_id: community.id,
       member_id: user.id,
@@ -34,7 +34,7 @@ export default function Community({
     if (status === 201) {
       setUserMember(communityMember);
     }
-  };
+  }
 
   return (
     <AppLayout title={`${community.name} - Community`}>

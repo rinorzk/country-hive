@@ -22,11 +22,21 @@ export default function Rooms({
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const { asPath } = useRouter();
 
-  const handleNewRoom = async (newRoom: NewRoom) => {
+  async function handleNewRoom(newRoom: NewRoom) {
     const { data, status } = await addCommunityRoom(newRoom);
 
     if (data?.length) setCommunityRooms((prev) => [...prev, ...data]);
-  };
+  }
+
+  function renderRoomLink(room: Room) {
+    return (
+      <li key={room.id}>
+        <Link key={room.id} href={`${asPath}/${room.slug}`}>
+          {room.title}
+        </Link>
+      </li>
+    );
+  }
 
   return (
     <AppLayout title={`${community.name} - Rooms`}>
@@ -34,15 +44,7 @@ export default function Rooms({
       <button onClick={() => setCreateModalOpen(true)}>Create room</button>
 
       <ul>
-        {communityRooms.length > 0
-          ? communityRooms.map((room) => (
-              <li key={room.id}>
-                <Link key={room.id} href={`${asPath}/${room.slug}`}>
-                  {room.title}
-                </Link>
-              </li>
-            ))
-          : null}
+        {communityRooms.length > 0 ? communityRooms.map(renderRoomLink) : null}
       </ul>
 
       <NewRoomModal

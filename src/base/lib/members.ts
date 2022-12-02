@@ -5,19 +5,19 @@ import {
 import { Member } from "../types/db";
 import { ServerSidePropsCtx } from "../types/app";
 
-export const addMemberInCommunity = async (member: Member) => {
+export async function addMemberInCommunity(member: Member) {
   const { data, status } = await supabaseClient
     .from<Member>("community_members")
     .insert(member, { returning: "minimal" });
 
   return { data, status };
-};
+}
 
-export const getCommunityMemberServer = async (
+export async function getCommunityMemberServer(
   ctx: ServerSidePropsCtx,
   communityId: string,
   userId: string
-) => {
+) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Member>("community_members")
     .select("*")
@@ -25,4 +25,4 @@ export const getCommunityMemberServer = async (
     .eq("member_id", userId);
 
   return { data, status };
-};
+}

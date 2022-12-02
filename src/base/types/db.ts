@@ -39,10 +39,14 @@ export type RoomMessage = {
   id: string;
   creator_id: string;
   room_id: string;
+  reply_id?: string;
   created_at: string;
   content: string;
   profile: {
     username: string;
+  };
+  replyOf: {
+    content: string;
   };
 };
 
