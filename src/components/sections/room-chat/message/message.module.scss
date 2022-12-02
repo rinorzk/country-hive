@@ -1,23 +1,28 @@
-.message {
-  width: 250px;
+.messageItem {
+  width: 200px;
   border: 1px solid grey;
   padding: 2px;
   margin-bottom: 2px;
 }
 
-.message small {
+.messageReply {
   display: block;
 }
 
-.message span {
+.messageContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.replyBtn {
   display: none;
   margin-left: 20px;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.message:hover {
-  span {
-    display: block;
-  }
+.messageContent:hover .replyBtn {
+  display: block;
 }
