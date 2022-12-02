@@ -1,4 +1,4 @@
-export type SEOProps = {
+export interface SEOProps {
   title?: string;
   description?: string;
-};
+}
