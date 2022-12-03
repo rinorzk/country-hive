@@ -25,6 +25,7 @@ export default function NewPostModal({
         community_id: communityId,
         slug: kebabCase(title),
       });
+      onClose();
     } catch (error) {
       console.log("error", error);
     }
