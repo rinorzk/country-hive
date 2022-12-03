@@ -27,7 +27,7 @@ export default function Community({
     const communityMember = {
       community_id: community.id,
       member_id: user.id,
-      approved: community.type === "public",
+      approved: false,
     };
 
     const { status } = await addMemberInCommunity(communityMember);
