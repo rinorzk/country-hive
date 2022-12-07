@@ -51,6 +51,13 @@ export const getServerSideProps = withPageAuth({
 
       const isAdmin = community[0].creator_id === user.id;
 
+      if (!isAdmin) {
+        return {
+          redirect: { destination: `/app/${country}/${communitySlug}` },
+          props: {},
+        };
+      }
+
       return {
         props: { ...props, community: community[0], isAdmin },
       };
