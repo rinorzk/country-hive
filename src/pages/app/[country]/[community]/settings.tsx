@@ -1,8 +1,10 @@
 import React from "react";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import AppLayout from "@/components/layouts/app-layout";
 import { Community } from "@/base/types/db";
 import { getCommunityServer } from "@/base/lib/community";
+import { approveCommunityMember, getUserByUsername } from "@/base/lib/members";
+import AppLayout from "@/components/layouts/app-layout";
+import ApproveMember from "@/components/sections/approve-member";
 
 export default function CommunitySettings({
   community,
@@ -11,9 +13,23 @@ export default function CommunitySettings({
   community: Community;
   isAdmin: boolean;
 }) {
+  async function handleApproveUser(username: string) {
+    const { data, error } = await getUserByUsername(username);
+    if (data.length === 0) return alert("no user found with that username");
+
+    const newMember = {
+      member_id: data[0].id,
+      community_id: community.id,
+      can_post: true,
+      approved: true,
+    };
+    const { data: approved } = await approveCommunityMember(newMember);
+  }
+
   return (
     <AppLayout title={`${community.name} - Community`}>
       <h4>Community: {community.name}</h4>
+      <ApproveMember onSubmit={handleApproveUser} />
     </AppLayout>
   );
 }
