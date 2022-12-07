@@ -27,6 +27,7 @@ export default function NewCommunityModal({
         country,
         slug: kebabCase(name),
       });
+      onClose();
     } catch (error) {
       console.log("error", error);
     }

@@ -26,3 +26,21 @@ export async function getCommunityMemberServer(
 
   return { data, status };
 }
+
+export async function getUserByUsername(username: string) {
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("id, username")
+    .eq("username", username);
+
+  return { data, error };
+}
+
+export async function approveCommunityMember(member: Member) {
+  const { data, error } = await supabaseClient
+    .from("community_members")
+    .upsert(member, { onConflict: "member_id, community_id" })
+    .select();
+
+  return { data, error };
+}

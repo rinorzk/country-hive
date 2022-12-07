@@ -25,6 +25,7 @@ export default function NewRoomModal({
         community_id: communityId,
         slug: kebabCase(title),
       });
+      onClose();
     } catch (error) {
       console.log("error", error);
     }
