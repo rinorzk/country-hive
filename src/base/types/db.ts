@@ -14,6 +14,9 @@ export type Member = {
   created_at?: string;
   approved: boolean;
   can_post: boolean;
+  member?: {
+    username: string;
+  };
 };
 
 export type Post = {
