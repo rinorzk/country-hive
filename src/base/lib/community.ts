@@ -3,7 +3,7 @@ import {
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
 import { Community } from "../types/db";
-import { ServerSidePropsCtx } from "../types/app";
+import { NewCommunity, ServerSidePropsCtx } from "../types/app";
 
 // export const useCommunity = ({ country }: { country: string }) => {
 //   const [communities, setCommunities] = useState<Community[]>([]);
