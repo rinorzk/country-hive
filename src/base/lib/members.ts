@@ -36,11 +36,20 @@ export async function getUserByUsername(username: string) {
   return { data, error };
 }
 
-export async function approveCommunityMember(member: Member) {
+export async function addApprovedCommunityMember(member: Member) {
   const { data, error } = await supabaseClient
     .from("community_members")
     .upsert(member, { onConflict: "member_id, community_id" })
     .select();
+
+  return { data, error };
+}
+
+export async function getCommunityMembers(communityId: string) {
+  const { data, error } = await supabaseClient
+    .from("community_members")
+    .select("*, member: profiles(username)")
+    .eq("community_id", communityId);
 
   return { data, error };
 }
