@@ -13,6 +13,10 @@ export type Member = {
   member_id: string;
   created_at?: string;
   approved: boolean;
+  can_post: boolean;
+  member?: {
+    username: string;
+  };
 };
 
 export type Post = {
