@@ -22,9 +22,9 @@ export default function Country({
     useState<Community[]>(communities);
 
   async function handleNewCommunity(newCommunity: NewCommunity) {
-    const { status } = await addCommunity(newCommunity);
+    const { data, status } = await addCommunity(newCommunity);
 
-    if (status === 201) setCommunitiesList((prev) => [...prev, newCommunity]);
+    if (status === 201) setCommunitiesList((prev) => [...prev, ...data]);
   }
 
   function renderCommunityLink(cmt: Community) {
