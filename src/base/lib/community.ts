@@ -2,7 +2,7 @@ import {
   supabaseClient,
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
-import { Community, NewCommunity } from "../types/db";
+import { Community } from "../types/db";
 import { ServerSidePropsCtx } from "../types/app";
 
 // export const useCommunity = ({ country }: { country: string }) => {
