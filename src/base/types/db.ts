@@ -1,8 +1,10 @@
+export type CommunityType = "public" | "restricted" | "private";
+
 export type Community = {
   id: string;
   name: string;
   created_at: string;
-  type: "public" | "restricted" | "private";
+  type: CommunityType;
   creator_id: string;
   country: string;
   slug: string;

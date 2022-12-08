@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
 import kebabCase from "lodash/kebabCase";
 import { customModalStyles } from "@/base/styles/modal-style";
+import { CommunityType } from "@/base/types/db";
 import styles from "./new-community-modal.module.scss";
 import { NewCommunityModalProps } from "./types";
 
@@ -57,7 +58,7 @@ export default function NewCommunityModal({
           id="type"
           placeholder="Community type"
           value={type}
-          onChange={(e) => setType(e.target.value)}
+          onChange={(e) => setType(e.target.value as CommunityType)}
         >
           <option value="private">Private</option>
           <option value="public">Public</option>

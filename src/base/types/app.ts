@@ -11,10 +11,12 @@ export type Country = {
   flag: string;
 };
 
+export type CommunityType = "public" | "restricted" | "private";
+
 export type NewCommunity = {
   name: string;
   country: string;
-  type: "public" | "restricted" | "private";
+  type: CommunityType;
   creator_id: string;
   created_at?: string;
   slug: string;
