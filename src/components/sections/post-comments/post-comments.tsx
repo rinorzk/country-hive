@@ -3,16 +3,18 @@ import { usePostComments } from "@/base/hooks/usePostComments";
 import { addPostComment } from "@/base/lib/comments";
 import { PostComment } from "@/base/types/db";
 import { PostCommentsProps } from "./types";
+import CommentForm from "./comment-form";
 
 export default function PostComments({ postId, userId }: PostCommentsProps) {
   const [newComment, setNewComment] = useState("");
+  const [commentToReply, setCommentToReply] = useState<PostComment>(null);
   const { comments } = usePostComments({ postId, userId });
 
   function renderComment(comment: PostComment) {
     return <li key={comment.id}>{comment.content}</li>;
   }
 
-  async function onSubmitMessage(e: FormEvent) {
+  async function handleSubmitComment(e: FormEvent) {
     e.preventDefault();
     const comment = {
       post_id: postId,
@@ -25,18 +27,21 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
     }
   }
 
+  function clearReplyComment() {
+    setCommentToReply(null);
+  }
+
   return (
     <div>
       POST COMMENTS
       <ul>{comments.length ? comments.map(renderComment) : null}</ul>
-      <form onSubmit={onSubmitMessage}>
-        <input
-          type="text"
-          name="comment"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-      </form>
+      <CommentForm
+        onSubmit={handleSubmitComment}
+        newComment={newComment}
+        setNewComment={setNewComment}
+        commentToReply={commentToReply}
+        closeReplyComment={clearReplyComment}
+      />
     </div>
   );
 }
