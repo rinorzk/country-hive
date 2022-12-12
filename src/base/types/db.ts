@@ -65,4 +65,5 @@ export type PostComment = {
   profile: {
     username: string;
   };
+  replies: PostComment[];
 };

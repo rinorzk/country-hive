@@ -51,4 +51,5 @@ export type NewPostComment = {
   post_id: string;
   creator_id: string;
   content: string;
+  parent_id?: string;
 };

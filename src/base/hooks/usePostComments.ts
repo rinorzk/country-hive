@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import { PostCommentsProps } from "@/components/sections/post-comments/types";
 import { PostComment } from "../types/db";
-import { getPostComments } from "../lib/comments";
+import { getPostCommentsWithReplies } from "../lib/comments";
 
 export function usePostComments({ postId, userId }: PostCommentsProps) {
   const [comments, setComments] = useState<PostComment[]>([]);
 
   async function getPostCommentsData() {
-    const { data, error } = await getPostComments(postId);
+    const { data, error } = await getPostCommentsWithReplies(postId);
 
     if (!error) {
       setComments(data);

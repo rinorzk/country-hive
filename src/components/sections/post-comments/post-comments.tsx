@@ -4,6 +4,7 @@ import { addPostComment } from "@/base/lib/comments";
 import { PostComment } from "@/base/types/db";
 import { PostCommentsProps } from "./types";
 import CommentForm from "./comment-form";
+import Comment from "./comment";
 
 export default function PostComments({ postId, userId }: PostCommentsProps) {
   const [newComment, setNewComment] = useState("");
@@ -11,7 +12,18 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
   const { comments } = usePostComments({ postId, userId });
 
   function renderComment(comment: PostComment) {
-    return <li key={comment.id}>{comment.content}</li>;
+    return (
+      <Comment
+        key={comment.id}
+        comment={comment}
+        replyTo={setCommentToReply}
+        commentToReply={commentToReply}
+        onSubmit={handleSubmitComment}
+        newComment={newComment}
+        setNewComment={setNewComment}
+        closeReplyComment={clearReplyComment}
+      />
+    );
   }
 
   async function handleSubmitComment(e: FormEvent) {
@@ -20,6 +32,7 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
       post_id: postId,
       content: newComment,
       creator_id: userId,
+      parent_id: commentToReply.id,
     };
     const { status } = await addPostComment(comment);
     if (status === 201) {
