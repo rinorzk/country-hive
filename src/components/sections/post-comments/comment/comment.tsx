@@ -26,6 +26,11 @@ export default function Comment({
         <p>{comment.content}</p>
         <p onClick={handleReplyTo}>Reply</p>
       </div>
+      <ul>
+        {comment.replies?.map((reply) => (
+          <p key={reply.id}>{reply.content}</p>
+        ))}
+      </ul>
       {commentToReply && showCommentForm && (
         <CommentForm
           commentToReply={commentToReply}

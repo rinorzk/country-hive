@@ -62,6 +62,7 @@ export type PostComment = {
   post_id: string;
   created_at: string;
   content: string;
+  parent_id?: string;
   profile: {
     username: string;
   };

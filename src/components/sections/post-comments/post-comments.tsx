@@ -32,7 +32,7 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
       post_id: postId,
       content: newComment,
       creator_id: userId,
-      parent_id: commentToReply.id,
+      parent_id: commentToReply?.id,
     };
     const { status } = await addPostComment(comment);
     if (status === 201) {
