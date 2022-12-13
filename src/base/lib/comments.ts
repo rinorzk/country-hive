@@ -5,7 +5,7 @@ import { PostComment } from "../types/db";
 export async function getPostComments(postId: string) {
   const { data, error } = await supabaseClient
     .from<PostComment>("post_comments")
-    .select("*, profile: profiles(username), replyOf: parent_id(content)")
+    .select("*, profile: profiles(username)")
     .eq("post_id", postId)
     .order("created_at", { ascending: true });
 
