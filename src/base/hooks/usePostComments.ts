@@ -25,7 +25,7 @@ export function usePostComments({ postId, userId }: PostCommentsProps) {
       if (isParentOfReply(cm, newReply)) {
         return {
           ...cm,
-          replies: [...cm.replies, newReply],
+          replies: cm?.replies ? [...cm?.replies, newReply] : [newReply],
         };
       }
       return cm;
