@@ -16,12 +16,8 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
       <Comment
         key={comment.id}
         comment={comment}
-        replyTo={setCommentToReply}
-        commentToReply={commentToReply}
-        onSubmit={handleSubmitComment}
-        newComment={newComment}
-        setNewComment={setNewComment}
-        closeReplyComment={clearReplyComment}
+        postId={postId}
+        userId={userId}
       />
     );
   }
@@ -32,16 +28,12 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
       post_id: postId,
       content: newComment,
       creator_id: userId,
-      parent_id: commentToReply?.id,
+      parent_id: null,
     };
     const { status } = await addPostComment(comment);
     if (status === 201) {
       setNewComment("");
     }
-  }
-
-  function clearReplyComment() {
-    setCommentToReply(null);
   }
 
   return (
@@ -52,8 +44,6 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
         onSubmit={handleSubmitComment}
         newComment={newComment}
         setNewComment={setNewComment}
-        commentToReply={commentToReply}
-        closeReplyComment={clearReplyComment}
       />
     </div>
   );
