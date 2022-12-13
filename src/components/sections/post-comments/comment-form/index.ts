@@ -1,1 +1,1 @@
-export { default } from './comment-form'
+export { default } from "./comment-form";
