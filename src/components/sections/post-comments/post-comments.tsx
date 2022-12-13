@@ -8,7 +8,6 @@ import Comment from "./comment";
 
 export default function PostComments({ postId, userId }: PostCommentsProps) {
   const [newComment, setNewComment] = useState("");
-  const [commentToReply, setCommentToReply] = useState<PostComment>(null);
   const { comments } = usePostComments({ postId, userId });
 
   function renderComment(comment: PostComment) {

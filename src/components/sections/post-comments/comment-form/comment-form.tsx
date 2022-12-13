@@ -5,8 +5,6 @@ export default function CommentForm({
   onSubmit,
   newComment,
   setNewComment,
-  commentToReply,
-  closeReplyComment,
 }: CommentFormProps) {
   return (
     <form onSubmit={onSubmit}>

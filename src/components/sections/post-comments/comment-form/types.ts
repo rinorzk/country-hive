@@ -1,5 +1,4 @@
 import { FormEvent } from "react";
-import { PostComment } from "@/base/types/db";
 
 export interface CommentFormProps {
   onSubmit: (e: FormEvent) => Promise<void>;
