@@ -3,6 +3,7 @@ import CommentForm from "../comment-form";
 import { CommentProps } from "./types";
 import styles from "./comment.module.scss";
 import { CommentFormProps } from "../comment-form/types";
+import { PostComment } from "@/base/types/db";
 
 export default function Comment({
   comment,
@@ -20,17 +21,17 @@ export default function Comment({
     setShowCommentForm(true);
   }
 
+  function renderReply(reply: PostComment) {
+    return <li key={reply.id}>{reply.content}</li>;
+  }
+
   return (
     <li className={styles.commentItem}>
       <div>
         <p>{comment.content}</p>
         <p onClick={handleReplyTo}>Reply</p>
       </div>
-      <ul>
-        {comment.replies?.map((reply) => (
-          <p key={reply.id}>{reply.content}</p>
-        ))}
-      </ul>
+      <ul>{comment.replies?.map(renderReply)}</ul>
       {commentToReply && showCommentForm && (
         <CommentForm
           commentToReply={commentToReply}
