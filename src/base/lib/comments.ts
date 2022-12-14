@@ -19,3 +19,11 @@ export async function addPostComment(newComment: NewPostComment) {
 
   return { data, status };
 }
+
+export async function getPostCommentsWithReplies(postId: string) {
+  const { data, error } = await supabaseClient
+    .rpc("get_comments_with_replies", { post_id: postId })
+    .select();
+
+  return { data, error };
+}
