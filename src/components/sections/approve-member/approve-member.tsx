@@ -12,7 +12,7 @@ export default function ApproveMembers({
   const { members } = useCommunityMembers({ communityId, userId });
 
   function renderMember(member: Member) {
-    return <li>{member.member?.username}</li>;
+    return <li key={member.member_id}>{member.member?.username}</li>;
   }
 
   function handleApproveMember(e: React.FormEvent<Element>) {
