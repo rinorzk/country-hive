@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import List from "@editorjs/list";
 import { useThrottleCallback } from "@react-hook/throttle";
+import { updateCommunity } from "@/base/lib/community";
 
 const EDITOR_JS_TOOLS = {
   list: {
@@ -10,9 +11,16 @@ const EDITOR_JS_TOOLS = {
   },
 };
 
-export default function RichtextEditor({}: {}) {
+export default function RichtextEditor({
+  content,
+  communityId,
+  readOnly = false,
+}: {
+  content: any;
+  communityId: string;
+  readOnly?: boolean;
+}) {
   const editor = useRef(null);
-  const [content, setContent] = useState();
   const [saving, setSaving] = useState(false);
   const [doneSaving, setDoneSaving] = useState(false);
 
@@ -23,7 +31,7 @@ export default function RichtextEditor({}: {}) {
       setSaving(true);
       setDoneSaving(false);
 
-      // await saveEditor(docId, { content: data });
+      await updateCommunity(communityId, { intro: data });
 
       setTimeout(() => {
         setSaving(false);
@@ -44,6 +52,7 @@ export default function RichtextEditor({}: {}) {
       autofocus: true,
       placeholder: "Let it be known.",
       onChange: save,
+      readOnly: readOnly,
     });
 
     editor.current = editorJs;

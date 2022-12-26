@@ -12,7 +12,8 @@ import ApproveMember from "@/components/sections/approve-member";
 import { useUser } from "@supabase/auth-helpers-react";
 
 const DynamicRichtextEditor = dynamic(
-  () => import("@/components/sections/richtext-editor")
+  () => import("@/components/sections/richtext-editor"),
+  { ssr: false }
 );
 
 export default function CommunitySettings({
@@ -46,7 +47,10 @@ export default function CommunitySettings({
         userId={user?.id}
       />
       <h4>Homepage:</h4>
-      <DynamicRichtextEditor />
+      <DynamicRichtextEditor
+        content={community.intro}
+        communityId={community.id}
+      />
     </AppLayout>
   );
 }

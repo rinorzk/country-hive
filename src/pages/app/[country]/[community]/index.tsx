@@ -10,6 +10,12 @@ import {
   getCommunityMemberServer,
 } from "@/base/lib/members";
 import { getCommunityServer } from "@/base/lib/community";
+import dynamic from "next/dynamic";
+
+const DynamicRichtextEditor = dynamic(
+  () => import("@/components/sections/richtext-editor"),
+  { ssr: false }
+);
 
 export default function Community({
   community,
@@ -42,6 +48,14 @@ export default function Community({
       <h4>Community: {community.name}</h4>
       <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
       <p>Created by: {community.creator_id}</p>
+      <h4>Community intro:</h4>
+      {community.intro ? (
+        <DynamicRichtextEditor
+          content={community.intro}
+          communityId={community.id}
+          readOnly
+        />
+      ) : null}
       <h5>Checkout posts</h5>
       <Link href={`${asPath}/posts`}>posts</Link>
       <br />
