@@ -27,6 +27,7 @@ export default function NewCommunityModal({
         creator_id: userId,
         country,
         slug: kebabCase(name),
+        intro: {},
       });
       onClose();
     } catch (error) {
