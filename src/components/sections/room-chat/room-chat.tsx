@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import { addRoomMessage } from "@/base/lib/messages";
 import { RoomMessage } from "@/base/types/db";
-import { useRoomMessages } from "@/base/hooks/useRoomMessages";
+import { useRoomMessages } from "@/base/hooks/use-room-messages";
 import { RoomChatProps } from "./types";
 import Message from "./message";
 import MessageFrom from "./message-form";

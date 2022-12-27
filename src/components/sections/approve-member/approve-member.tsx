@@ -1,6 +1,6 @@
-import { useCommunityMembers } from "@/base/hooks/useCommunityMembers";
-import { Member } from "@/base/types/db";
 import React, { useState } from "react";
+import { Member } from "@/base/types/db";
+import { useCommunityMembers } from "@/base/hooks/use-community-members";
 import { ApproveMemberProps } from "./types";
 
 export default function ApproveMembers({
