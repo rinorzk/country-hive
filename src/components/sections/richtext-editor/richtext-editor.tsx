@@ -1,16 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
-import List from "@editorjs/list";
 import { useThrottleCallback } from "@react-hook/throttle";
 import { updateCommunity } from "@/base/lib/community";
 import { RichTextEditorProps } from "./types";
-
-const EDITOR_JS_TOOLS = {
-  list: {
-    class: List,
-    inlineToolbar: true,
-  },
-};
+import { editorJsTools } from "@/base/config/editor-js";
 
 export default function RichtextEditor({
   content,
@@ -43,11 +36,11 @@ export default function RichtextEditor({
 
   useEffect(() => {
     const editorJs = new EditorJS({
-      tools: EDITOR_JS_TOOLS,
+      tools: editorJsTools,
       holder: "editorjs",
       data: content,
       autofocus: true,
-      placeholder: "Let it be known.",
+      placeholder: "Welcome.",
       onChange: save,
       readOnly: readOnly,
     });
