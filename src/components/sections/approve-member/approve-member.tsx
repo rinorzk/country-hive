@@ -1,6 +1,6 @@
-import { useCommunityMembers } from "@/base/hooks/useCommunityMembers";
-import { Member } from "@/base/types/db";
 import React, { useState } from "react";
+import { Member } from "@/base/types/db";
+import { useCommunityMembers } from "@/base/hooks/use-community-members";
 import { ApproveMemberProps } from "./types";
 
 export default function ApproveMembers({
@@ -12,7 +12,7 @@ export default function ApproveMembers({
   const { members } = useCommunityMembers({ communityId, userId });
 
   function renderMember(member: Member) {
-    return <li>{member.member?.username}</li>;
+    return <li key={member.member_id}>{member.member?.username}</li>;
   }
 
   function handleApproveMember(e: React.FormEvent<Element>) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import dynamic from "next/dynamic";
 import { Community } from "@/base/types/db";
 import { getCommunityServer } from "@/base/lib/community";
 import {
@@ -9,6 +10,11 @@ import {
 import AppLayout from "@/components/layouts/app-layout";
 import ApproveMember from "@/components/sections/approve-member";
 import { useUser } from "@supabase/auth-helpers-react";
+
+const DynamicRichtextEditor = dynamic(
+  () => import("@/components/sections/richtext-editor"),
+  { ssr: false }
+);
 
 export default function CommunitySettings({
   community,
@@ -39,6 +45,11 @@ export default function CommunitySettings({
         onSubmit={handleApproveUser}
         communityId={community.id}
         userId={user?.id}
+      />
+      <h4>Homepage:</h4>
+      <DynamicRichtextEditor
+        content={community.intro}
+        communityId={community.id}
       />
     </AppLayout>
   );

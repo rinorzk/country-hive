@@ -8,6 +8,7 @@ export type Community = {
   creator_id: string;
   country: string;
   slug: string;
+  intro: {};
 };
 
 export type Member = {
