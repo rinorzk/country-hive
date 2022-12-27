@@ -3,6 +3,7 @@ import EditorJS from "@editorjs/editorjs";
 import List from "@editorjs/list";
 import { useThrottleCallback } from "@react-hook/throttle";
 import { updateCommunity } from "@/base/lib/community";
+import { RichTextEditorProps } from "./types";
 
 const EDITOR_JS_TOOLS = {
   list: {
@@ -15,11 +16,7 @@ export default function RichtextEditor({
   content,
   communityId,
   readOnly = false,
-}: {
-  content: any;
-  communityId: string;
-  readOnly?: boolean;
-}) {
+}: RichTextEditorProps) {
   const editor = useRef(null);
   const [saving, setSaving] = useState(false);
   const [doneSaving, setDoneSaving] = useState(false);
