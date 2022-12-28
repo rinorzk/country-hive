@@ -11,6 +11,7 @@ import {
 } from "@/base/lib/members";
 import { getCommunityServer } from "@/base/lib/community";
 import dynamic from "next/dynamic";
+import CommunityAvatar from "@/components/elements/community-avatar";
 
 const DynamicRichtextEditor = dynamic(
   () => import("@/components/sections/richtext-editor"),
@@ -49,6 +50,9 @@ export default function Community({
       <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
       <p>Created by: {community.creator_id}</p>
       <h4>Community intro:</h4>
+      {community.avatar_url ? (
+        <CommunityAvatar src={community.avatar_url} alt={community.name} />
+      ) : null}
       {community.intro ? (
         <DynamicRichtextEditor
           content={community.intro}
