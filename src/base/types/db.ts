@@ -9,7 +9,7 @@ export type Community = {
   country: string;
   slug: string;
   intro: {};
-  avatar_url: string;
+  avatar_url?: string;
 };
 
 export type Member = {
