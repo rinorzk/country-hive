@@ -10,6 +10,7 @@ import {
 import AppLayout from "@/components/layouts/app-layout";
 import ApproveMember from "@/components/sections/approve-member";
 import { useUser } from "@supabase/auth-helpers-react";
+import CommunityAvatarUpload from "@/components/modules/community-avatar-upload";
 
 const DynamicRichtextEditor = dynamic(
   () => import("@/components/sections/richtext-editor"),
@@ -41,6 +42,11 @@ export default function CommunitySettings({
   return (
     <AppLayout title={`${community.name} - Community`}>
       <h4>Community: {community.name}</h4>
+      <CommunityAvatarUpload
+        url={community.avatar_url}
+        alt={community.name}
+        uid={community.id}
+      />
       <ApproveMember
         onSubmit={handleApproveUser}
         communityId={community.id}
