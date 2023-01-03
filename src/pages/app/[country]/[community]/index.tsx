@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community as CommunityType, Member } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
@@ -10,7 +11,6 @@ import {
   getCommunityMemberServer,
 } from "@/base/lib/members";
 import { getCommunityServer } from "@/base/lib/community";
-import dynamic from "next/dynamic";
 import CommunityAvatar from "@/components/elements/community-avatar";
 
 const DynamicRichtextEditor = dynamic(

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "@/base/config/supabase";
 import CommunityAvatar from "@/components/elements/community-avatar";
+import { updateCommunity } from "@/base/lib/community";
 import styles from "./community-avatar-upload.module.scss";
 import { CommunityAvatarUploadProps } from "./types";
 
@@ -8,11 +9,40 @@ export default function CommunityAvatarUpload({
   url,
   alt,
   uid,
+  slug,
 }: CommunityAvatarUploadProps) {
+  const [uploadFileUrl, setUploadFileUrl] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState(null);
+  const [signedUrl, setSignedUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
 
-  const uploadAvatar = async (event) => {
+  useEffect(() => {
+    if (uploadFileUrl) {
+      downloadImage(uploadFileUrl);
+    }
+  }, [uploadFileUrl]);
+
+  async function downloadImage(path: string) {
+    try {
+      const { data, error } = await supabase.storage
+        .from("community-avatars")
+        .download(path);
+      if (error) {
+        throw error;
+      }
+      const { data: urlData } = await supabase.storage
+        .from("community-avatars")
+        .createSignedUrl(path, 60);
+
+      const url = URL.createObjectURL(data);
+      setSignedUrl(urlData.signedURL);
+      setAvatarUrl(url);
+    } catch (error) {
+      console.log("Error downloading image: ", error);
+    }
+  }
+
+  async function handleUploadFile(event: React.ChangeEvent<HTMLInputElement>) {
     try {
       setUploading(true);
 
@@ -22,8 +52,8 @@ export default function CommunityAvatarUpload({
 
       const file = event.target.files[0];
       const fileExt = file.name.split(".").pop();
-      const fileName = `${uid}.${fileExt}`;
-      const filePath = `${fileName}`;
+      const fileName = `${slug}.${fileExt}`;
+      const filePath = `${uid}/${fileName}`;
 
       let { error: uploadError } = await supabase.storage
         .from("community-avatars")
@@ -33,18 +63,23 @@ export default function CommunityAvatarUpload({
         throw uploadError;
       }
 
-      // onUpload(filePath);
+      setUploadFileUrl(filePath);
     } catch (error) {
-      alert("Error uploading avatar!");
       console.log(error);
     } finally {
       setUploading(false);
     }
-  };
+  }
+
+  async function handleOnSave() {
+    if (signedUrl) {
+      await updateCommunity(uid, { avatar_url: signedUrl });
+    }
+  }
 
   return (
     <div>
-      {url ? <CommunityAvatar src={url} alt={alt} /> : null}
+      {url ? <CommunityAvatar src={avatarUrl || url} alt={alt} /> : null}
       <div>
         <label className="button primary block" htmlFor="single">
           {uploading ? "Uploading ..." : "Upload"}
@@ -57,9 +92,10 @@ export default function CommunityAvatarUpload({
           type="file"
           id="single"
           accept="image/*"
-          onChange={uploadAvatar}
+          onChange={handleUploadFile}
           disabled={uploading}
         />
+        <button onClick={handleOnSave}>Save</button>
       </div>
     </div>
   );

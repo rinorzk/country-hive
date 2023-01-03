@@ -46,6 +46,7 @@ export default function CommunitySettings({
         url={community.avatar_url}
         alt={community.name}
         uid={community.id}
+        slug={community.slug}
       />
       <ApproveMember
         onSubmit={handleApproveUser}
