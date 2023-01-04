@@ -27,6 +27,7 @@
     │   ├── components
     │   │   ├── elements            # all components that are used at least twice
     │   │   ├── layouts             # all layout-related components
+    │   │   ├── modules             # sections' element equivalent (components used in sections but not as small as elements)
     │   │   ├── sections            # pages' sections equivalent (components used once should be nested in it's parent)
     │   │   └── templates           # templates for pages
     │   └── pages

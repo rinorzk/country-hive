@@ -21,6 +21,7 @@ export type NewCommunity = {
   created_at?: string;
   slug: string;
   intro: {};
+  avatar_url?: string;
 };
 
 export type NewPost = {

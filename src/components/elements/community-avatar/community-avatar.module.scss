@@ -1,0 +1,12 @@
+.avatarHolder {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid #efefef;
+  overflow: hidden;
+}
+
+.avatar {
+  object-fit: cover;
+}
