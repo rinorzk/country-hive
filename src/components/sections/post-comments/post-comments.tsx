@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import { usePostComments } from "@/base/hooks/usePostComments";
+import { usePostComments } from "@/base/hooks/use-post-comments";
 import { addPostComment } from "@/base/lib/comments";
 import { PostComment } from "@/base/types/db";
 import { PostCommentsProps } from "./types";

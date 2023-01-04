@@ -20,6 +20,8 @@ export type NewCommunity = {
   creator_id: string;
   created_at?: string;
   slug: string;
+  intro: {};
+  avatar_url?: string;
 };
 
 export type NewPost = {

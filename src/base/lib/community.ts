@@ -57,31 +57,31 @@ import { NewCommunity, ServerSidePropsCtx } from "../types/app";
 //   }
 // };
 
-export const addCommunity = async (community: NewCommunity) => {
+export async function addCommunity(community: NewCommunity) {
   const { data, status } = await supabaseClient
     .from<Community>("communities")
     .insert(community);
 
   return { data, status };
-};
+}
 
-export const getAllCommunitiesServer = async (
+export async function getAllCommunitiesServer(
   ctx: ServerSidePropsCtx,
   country: string
-) => {
+) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Community>("communities")
     .select("name, id, slug")
     .eq("country", country);
 
   return { data, status };
-};
+}
 
-export const getCommunityServer = async (
+export async function getCommunityServer(
   ctx: ServerSidePropsCtx,
   communitySlug: string,
   country: string
-) => {
+) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Community>("communities")
     .select("*")
@@ -89,4 +89,13 @@ export const getCommunityServer = async (
     .eq("country", country);
 
   return { data, status };
-};
+}
+
+export async function updateCommunity(id: string, updatedColumns: {}) {
+  const { data, error } = await supabaseClient
+    .from<Community>("communities")
+    .update(updatedColumns)
+    .eq("id", id);
+
+  return { data, error };
+}
