@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community, Post } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
-import { addCommunityPost, getCommunityPostsServer } from "@/base/lib/posts";
+import {
+  addCommunityPost,
+  getCommunityPostsWithLikesServer,
+} from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
 import { NewPost } from "@/base/types/app";
 
@@ -32,7 +35,7 @@ export default function Posts({
     return (
       <li key={post.id}>
         <Link key={post.id} href={`${asPath}/${post.slug}`}>
-          {post.title}
+          {post.title} {post.likes}
         </Link>
       </li>
     );
@@ -73,7 +76,7 @@ export const getServerSideProps = withPageAuth({
         country
       );
 
-      const { data: posts } = await getCommunityPostsServer(
+      const { data: posts } = await getCommunityPostsWithLikesServer(
         ctx,
         community[0].id
       );

@@ -17,6 +17,17 @@ export async function getCommunityPostsServer(
   return { data, status };
 }
 
+export async function getCommunityPostsWithLikesServer(
+  ctx: ServerSidePropsCtx,
+  communityId: string
+) {
+  const { data, error } = await supabaseServerClient(ctx)
+    .rpc("get_post_with_likes", { community_id: communityId })
+    .select();
+
+  return { data, error };
+}
+
 export async function addCommunityPost(post: NewPost) {
   const { data, status } = await supabaseClient
     .from<Post>("posts")

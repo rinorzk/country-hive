@@ -8,11 +8,12 @@ import { getCommunityPostServer } from "@/base/lib/posts";
 import PostComments from "@/components/sections/post-comments";
 
 export default function Post({ post }: { post: PostType }) {
-  const { user } = useUser()
+  const { user } = useUser();
 
   return (
     <AppLayout>
       <h4>{post.title}</h4>
+      <p>Likes: {post.likes}</p>
       <PostComments postId={post.id} userId={user?.id} />
     </AppLayout>
   );
