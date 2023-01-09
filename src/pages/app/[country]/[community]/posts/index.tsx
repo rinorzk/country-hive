@@ -5,9 +5,13 @@ import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community, Post } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
-import { addCommunityPost, getCommunityPostsServer } from "@/base/lib/posts";
+import {
+  addCommunityPost,
+  getCommunityPostsWithLikesServer,
+} from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
 import { NewPost } from "@/base/types/app";
+import PostLikes from "@/components/modules/post-likes";
 
 export default function Posts({
   user,
@@ -32,8 +36,14 @@ export default function Posts({
     return (
       <li key={post.id}>
         <Link key={post.id} href={`${asPath}/${post.slug}`}>
-          {post.title}
+          <h5>{post.title}</h5>
         </Link>
+        <PostLikes
+          likes={post.likes}
+          isLiked={post.is_liked}
+          postId={post.id}
+          memberId={user.id}
+        />
       </li>
     );
   }
@@ -44,7 +54,7 @@ export default function Posts({
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
 
       <ul>
-        {communityPosts.length > 0 ? communityPosts.map(renderPostLink) : null}
+        {communityPosts?.length > 0 ? communityPosts.map(renderPostLink) : null}
       </ul>
 
       <NewPostModal
@@ -73,9 +83,10 @@ export const getServerSideProps = withPageAuth({
         country
       );
 
-      const { data: posts } = await getCommunityPostsServer(
+      const { data: posts } = await getCommunityPostsWithLikesServer(
         ctx,
-        community[0].id
+        community[0].id,
+        user.id
       );
 
       return {

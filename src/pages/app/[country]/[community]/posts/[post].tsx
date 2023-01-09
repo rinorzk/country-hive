@@ -4,16 +4,23 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Post as PostType } from "@/base/types/db";
 import { getCommunityServer } from "@/base/lib/community";
-import { getCommunityPostServer } from "@/base/lib/posts";
+import { getCommunityPostWithLikesServer } from "@/base/lib/posts";
 import PostComments from "@/components/sections/post-comments";
+import PostLikes from "@/components/modules/post-likes";
 
 export default function Post({ post }: { post: PostType }) {
-  const { user } = useUser()
+  const { user } = useUser();
 
   return (
     <AppLayout>
-      <h4>{post.title}</h4>
-      <PostComments postId={post.id} userId={user?.id} />
+      <h4>{post?.title}</h4>
+      <PostLikes
+        likes={post.likes}
+        isLiked={post.is_liked}
+        postId={post.id}
+        memberId={user?.id}
+      />
+      <PostComments postId={post?.id} userId={user?.id} />
     </AppLayout>
   );
 }
@@ -34,10 +41,11 @@ export const getServerSideProps = withPageAuth({
         country
       );
 
-      const { data: post } = await getCommunityPostServer(
+      const { data: post } = await getCommunityPostWithLikesServer(
         ctx,
         community[0].id,
-        postSlug
+        postSlug,
+        user.id
       );
 
       return {
