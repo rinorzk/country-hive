@@ -31,7 +31,8 @@ export type Post = {
   description?: string;
   created_at: string;
   slug: string;
-  likes?: [{ count: number }];
+  likes?: number;
+  is_liked?: boolean;
 };
 
 export type Room = {
@@ -70,4 +71,9 @@ export type PostComment = {
     username: string;
   };
   replies: PostComment[];
+};
+
+export type PostLikes = {
+  post_id: string;
+  member_id: string;
 };

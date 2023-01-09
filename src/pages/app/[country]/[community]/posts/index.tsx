@@ -7,11 +7,13 @@ import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
 import {
   addCommunityPost,
-  getCommunityPostsServer,
+  dislikePost,
   getCommunityPostsWithLikesServer,
+  likePost,
 } from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
 import { NewPost } from "@/base/types/app";
+import PostLikes from "@/components/modules/post-likes";
 
 export default function Posts({
   user,
@@ -32,16 +34,31 @@ export default function Posts({
     if (data?.length) setCommunityPosts((prev) => [...prev, ...data]);
   };
 
-  console.log("posts", posts);
+  async function handleLikePost(
+    liked: boolean,
+    postId: string,
+    memberId: string
+  ) {
+    try {
+      if (liked) {
+        const { data, error } = await likePost(postId, memberId);
+      } else {
+        const { data, error } = await dislikePost(postId, memberId);
+      }
+    } catch (error) {}
+  }
 
   function renderPostLink(post: Post) {
     return (
       <li key={post.id}>
         <Link key={post.id} href={`${asPath}/${post.slug}`}>
           <h5>{post.title}</h5>
-          <p>Likes: {post.likes}</p>
-          <p>Liked by user: {String(post.is_liked)}</p>
         </Link>
+        <PostLikes
+          likes={post.likes}
+          isLiked={post.is_liked}
+          onClick={(liked) => handleLikePost(liked, post.id, user.id)}
+        />
       </li>
     );
   }

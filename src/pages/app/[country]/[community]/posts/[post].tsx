@@ -5,20 +5,38 @@ import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Post as PostType } from "@/base/types/db";
 import { getCommunityServer } from "@/base/lib/community";
 import {
-  getCommunityPostServer,
+  dislikePost,
   getCommunityPostWithLikesServer,
+  likePost,
 } from "@/base/lib/posts";
 import PostComments from "@/components/sections/post-comments";
+import PostLikes from "@/components/modules/post-likes";
 
 export default function Post({ post }: { post: PostType }) {
   const { user } = useUser();
 
-  console.log("post", post);
+  async function handleLikePost(
+    liked: boolean,
+    postId: string,
+    memberId: string
+  ) {
+    try {
+      if (liked) {
+        const { data, error } = await likePost(postId, memberId);
+      } else {
+        const { data, error } = await dislikePost(postId, memberId);
+      }
+    } catch (error) {}
+  }
 
   return (
     <AppLayout>
       <h4>{post?.title}</h4>
-      <p>Likes: {post?.likes}</p>
+      <PostLikes
+        likes={post.likes}
+        isLiked={post.is_liked}
+        onClick={(liked) => handleLikePost(liked, post.id, user.id)}
+      />
       <PostComments postId={post?.id} userId={user?.id} />
     </AppLayout>
   );

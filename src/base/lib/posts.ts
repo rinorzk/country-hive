@@ -2,7 +2,7 @@ import {
   supabaseClient,
   supabaseServerClient,
 } from "@supabase/auth-helpers-nextjs";
-import { Post } from "../types/db";
+import { Post, PostLikes } from "../types/db";
 import { NewPost, ServerSidePropsCtx } from "../types/app";
 
 export async function getCommunityPostsServer(
@@ -69,4 +69,22 @@ export async function getCommunityPostWithLikesServer(
     .select();
 
   return { data, status };
+}
+
+export async function likePost(postId: string, memberId: string) {
+  const { data, error } = await supabaseClient
+    .from<PostLikes>("post_likes")
+    .insert({ post_id: postId, member_id: memberId });
+
+  return { data, error };
+}
+
+export async function dislikePost(postId: string, memberId: string) {
+  const { data, error } = await supabaseClient
+    .from<PostLikes>("post_likes")
+    .delete()
+    .eq("post_id", postId)
+    .eq("member_id", memberId);
+
+  return { data, error };
 }
