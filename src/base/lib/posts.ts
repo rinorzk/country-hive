@@ -11,7 +11,7 @@ export async function getCommunityPostsServer(
 ) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Post>("posts")
-    .select("title, id, slug, likes:post_likes(count)")
+    .select("title, id, slug")
     .eq("community_id", communityId);
 
   return { data, status };
