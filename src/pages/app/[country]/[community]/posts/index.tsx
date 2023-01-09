@@ -7,9 +7,7 @@ import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
 import {
   addCommunityPost,
-  dislikePost,
   getCommunityPostsWithLikesServer,
-  likePost,
 } from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
 import { NewPost } from "@/base/types/app";
@@ -34,20 +32,6 @@ export default function Posts({
     if (data?.length) setCommunityPosts((prev) => [...prev, ...data]);
   };
 
-  async function handleLikePost(
-    liked: boolean,
-    postId: string,
-    memberId: string
-  ) {
-    try {
-      if (liked) {
-        const { data, error } = await likePost(postId, memberId);
-      } else {
-        const { data, error } = await dislikePost(postId, memberId);
-      }
-    } catch (error) {}
-  }
-
   function renderPostLink(post: Post) {
     return (
       <li key={post.id}>
@@ -57,7 +41,8 @@ export default function Posts({
         <PostLikes
           likes={post.likes}
           isLiked={post.is_liked}
-          onClick={(liked) => handleLikePost(liked, post.id, user.id)}
+          postId={post.id}
+          memberId={user.id}
         />
       </li>
     );

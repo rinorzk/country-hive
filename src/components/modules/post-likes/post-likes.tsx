@@ -1,19 +1,38 @@
 import { useState } from "react";
+import { dislikePost, likePost } from "@/base/lib/posts";
 import { PostLikeProps } from "./types";
 import styles from "./post-likes.module.scss";
 
-export default function PostLikes({ likes, isLiked, onClick }: PostLikeProps) {
+export default function PostLikes({
+  likes,
+  isLiked,
+  postId,
+  memberId,
+}: PostLikeProps) {
   const [likesCount, setLikesCount] = useState(likes);
   const [isClicked, setIsClicked] = useState(isLiked);
 
-  function handleOnClick() {
-    if (isClicked) {
+  async function handleDislike() {
+    const { data, error } = await dislikePost(postId, memberId);
+    if (data) {
       setLikesCount(likes - 1);
-    } else {
+    }
+  }
+
+  async function handleLike() {
+    const { data, error } = await likePost(postId, memberId);
+    if (data) {
       setLikesCount(likes + 1);
     }
+  }
+
+  function handleOnClick() {
+    if (isClicked) {
+      handleDislike();
+    } else {
+      handleLike();
+    }
     setIsClicked(!isClicked);
-    onClick(!isClicked);
   }
 
   return (
