@@ -11,7 +11,7 @@ export async function getCommunityPostsServer(
 ) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Post>("posts")
-    .select("title, id, slug")
+    .select("title, id, slug, likes:post_likes(count)")
     .eq("community_id", communityId);
 
   return { data, status };
@@ -19,10 +19,14 @@ export async function getCommunityPostsServer(
 
 export async function getCommunityPostsWithLikesServer(
   ctx: ServerSidePropsCtx,
-  communityId: string
+  communityId: string,
+  userId: string
 ) {
   const { data, error } = await supabaseServerClient(ctx)
-    .rpc("get_post_with_likes", { community_id: communityId })
+    .rpc("get_posts_with_likes", {
+      community_id: communityId,
+      member_id: userId,
+    })
     .select();
 
   return { data, error };
@@ -46,6 +50,23 @@ export async function getCommunityPostServer(
     .select("*")
     .eq("community_id", communityId)
     .eq("slug", postSlug);
+
+  return { data, status };
+}
+
+export async function getCommunityPostWithLikesServer(
+  ctx: ServerSidePropsCtx,
+  communityId: string,
+  postSlug: string,
+  userId: string
+) {
+  const { data, status } = await supabaseServerClient(ctx)
+    .rpc("get_post_with_likes", {
+      community_id: communityId,
+      post_slug: postSlug,
+      member_id: userId,
+    })
+    .select();
 
   return { data, status };
 }

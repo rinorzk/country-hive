@@ -31,7 +31,7 @@ export type Post = {
   description?: string;
   created_at: string;
   slug: string;
-  likes?: number;
+  likes?: [{ count: number }];
 };
 
 export type Room = {

@@ -7,6 +7,7 @@ import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
 import {
   addCommunityPost,
+  getCommunityPostsServer,
   getCommunityPostsWithLikesServer,
 } from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
@@ -31,11 +32,15 @@ export default function Posts({
     if (data?.length) setCommunityPosts((prev) => [...prev, ...data]);
   };
 
+  console.log("posts", posts);
+
   function renderPostLink(post: Post) {
     return (
       <li key={post.id}>
         <Link key={post.id} href={`${asPath}/${post.slug}`}>
-          {post.title} {post.likes}
+          <h5>{post.title}</h5>
+          <p>Likes: {post.likes}</p>
+          <p>Liked by user: {String(post.is_liked)}</p>
         </Link>
       </li>
     );
@@ -47,7 +52,7 @@ export default function Posts({
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
 
       <ul>
-        {communityPosts.length > 0 ? communityPosts.map(renderPostLink) : null}
+        {communityPosts?.length > 0 ? communityPosts.map(renderPostLink) : null}
       </ul>
 
       <NewPostModal
@@ -78,7 +83,8 @@ export const getServerSideProps = withPageAuth({
 
       const { data: posts } = await getCommunityPostsWithLikesServer(
         ctx,
-        community[0].id
+        community[0].id,
+        user.id
       );
 
       return {
