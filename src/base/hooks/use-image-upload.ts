@@ -59,7 +59,7 @@ export function useImageUpload({
       const filePath = `${folder}/${filename}`;
 
       let { error: uploadError } = await supabase.storage
-        .from("community")
+        .from(bucket)
         .upload(filePath, file, { upsert: true });
 
       if (uploadError) {
