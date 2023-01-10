@@ -45,8 +45,8 @@ export default function CommunitySettings({
       <CommunityAvatarUpload
         url={community.avatar_url}
         alt={community.name}
-        uid={community.id}
-        slug={community.slug}
+        folderName={community.id}
+        fileName={community.slug}
       />
       <ApproveMember
         onSubmit={handleApproveUser}

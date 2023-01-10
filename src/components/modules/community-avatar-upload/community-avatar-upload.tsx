@@ -8,19 +8,19 @@ import { CommunityAvatarUploadProps } from "./types";
 export default function CommunityAvatarUpload({
   url,
   alt,
-  uid,
-  slug,
+  folderName,
+  fileName,
 }: CommunityAvatarUploadProps) {
   const { handleUploadFile, uploading, signedUrl, downloadImageUrl } =
     useImageUpload({
       bucket: "community-avatars",
-      folder: uid,
-      fileName: slug,
+      folder: folderName,
+      fileName: fileName,
     });
 
   async function handleOnSave() {
     if (signedUrl) {
-      await updateCommunity(uid, { avatar_url: signedUrl });
+      await updateCommunity(folderName, { avatar_url: signedUrl });
     }
   }
 
