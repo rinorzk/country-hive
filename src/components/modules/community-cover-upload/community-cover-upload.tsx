@@ -1,16 +1,16 @@
 import React from "react";
-import CommunityAvatar from "@/components/elements/community-avatar";
+import CommunityCover from "@/components/elements/community-cover";
 import { updateCommunity } from "@/base/lib/community";
 import { useImageUpload } from "@/base/hooks/use-image-upload";
-import styles from "./community-avatar-upload.module.scss";
-import { CommunityAvatarUploadProps } from "./types";
+import styles from "./community-cover-upload.module.scss";
+import { CommunityCoverUploadProps } from "./types";
 
-export default function CommunityAvatarUpload({
+export default function CommunityCoverUpload({
   url,
   alt,
   folderName,
   fileName,
-}: CommunityAvatarUploadProps) {
+}: CommunityCoverUploadProps) {
   const { handleUploadFile, uploading, signedUrl, downloadImageUrl } =
     useImageUpload({
       bucket: "community",
@@ -20,20 +20,20 @@ export default function CommunityAvatarUpload({
 
   async function handleOnSave() {
     if (signedUrl) {
-      await updateCommunity(folderName, { avatar_url: signedUrl });
+      await updateCommunity(folderName, { cover_url: signedUrl });
     }
   }
 
-  const hasAvatarUrl = downloadImageUrl || url;
+  const hasCoverUrl = downloadImageUrl || url;
 
   return (
     <div>
-      {hasAvatarUrl ? (
-        <CommunityAvatar src={downloadImageUrl ?? url} alt={alt} />
+      {hasCoverUrl ? (
+        <CommunityCover src={downloadImageUrl ?? url} alt={alt} />
       ) : null}
       <div>
         <label className="button primary block" htmlFor="single">
-          {uploading ? "Uploading ..." : "Upload avatar"}
+          {uploading ? "Uploading ..." : "Upload cover"}
         </label>
         <input
           style={{
