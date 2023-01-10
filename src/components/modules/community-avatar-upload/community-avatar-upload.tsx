@@ -13,7 +13,7 @@ export default function CommunityAvatarUpload({
 }: CommunityAvatarUploadProps) {
   const { handleUploadFile, uploading, signedUrl, downloadImageUrl } =
     useImageUpload({
-      bucket: "community-avatars",
+      bucket: "community",
       folder: folderName,
       fileName: fileName,
     });
@@ -33,7 +33,7 @@ export default function CommunityAvatarUpload({
       ) : null}
       <div>
         <label className="button primary block" htmlFor="single">
-          {uploading ? "Uploading ..." : "Upload"}
+          {uploading ? "Uploading ..." : "Upload avatar"}
         </label>
         <input
           style={{
