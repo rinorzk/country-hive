@@ -24,11 +24,11 @@ export default function CommunityCoverUpload({
     }
   }
 
-  const hasAvatarUrl = downloadImageUrl || url;
+  const hasCoverUrl = downloadImageUrl || url;
 
   return (
     <div>
-      {hasAvatarUrl ? (
+      {hasCoverUrl ? (
         <CommunityCover src={downloadImageUrl ?? url} alt={alt} />
       ) : null}
       <div>
