@@ -1,4 +1,4 @@
 export interface CommunityCoverProps {
-  url: string;
+  src: string;
   alt: string;
 }
