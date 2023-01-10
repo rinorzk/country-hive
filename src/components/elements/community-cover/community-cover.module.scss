@@ -1,0 +1,12 @@
+.coverHolder {
+  width: 700px;
+  height: 250px;
+  position: relative;
+  border-radius: 20px;
+  border: 1px solid #efefef;
+  overflow: hidden;
+}
+
+.cover {
+  object-fit: cover;
+}
