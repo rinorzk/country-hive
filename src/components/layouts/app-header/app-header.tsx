@@ -12,7 +12,13 @@ export default function AppHeader() {
         <Link href="/app" className={styles.title}>
           💬 Albotalk
         </Link>
-        <p>{user?.user_metadata.username}</p>
+        <div className={styles.menuHolder}>
+          <p className={styles.menuItem}>notifications</p>
+          <Link href="/app/messages" className={styles.menuItem}>
+            messages
+          </Link>
+          <p className={styles.menuItem}>{user?.user_metadata.username}</p>
+        </div>
       </div>
     </header>
   );

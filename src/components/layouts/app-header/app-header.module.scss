@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  border: 1px solid #f8f8f8;
+  border: 1px solid #ededed;
 }
 
 .wrapper p {
@@ -13,4 +13,12 @@
 
 .title {
   color: darkblue;
+}
+
+.menuHolder {
+  display: flex;
+}
+
+.menuItem {
+  margin: 0 20px;
 }
