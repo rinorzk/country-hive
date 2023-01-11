@@ -11,7 +11,7 @@ export default function CommunityAvatarUpload({
   folderName,
   fileName,
 }: CommunityAvatarUploadProps) {
-  const { handleUploadFile, uploading, signedUrl, downloadImageUrl } =
+  const { handleUploadFile, uploading, publicUrl, downloadImageUrl } =
     useImageUpload({
       bucket: "community",
       folder: folderName,
@@ -19,8 +19,8 @@ export default function CommunityAvatarUpload({
     });
 
   async function handleOnSave() {
-    if (signedUrl) {
-      await updateCommunity(folderName, { avatar_url: signedUrl });
+    if (publicUrl) {
+      await updateCommunity(folderName, { avatar_url: publicUrl });
     }
   }
 
@@ -32,7 +32,7 @@ export default function CommunityAvatarUpload({
         <CommunityAvatar src={downloadImageUrl ?? url} alt={alt} />
       ) : null}
       <div>
-        <label className="button primary block" htmlFor="single">
+        <label className="button primary block" htmlFor="community-avatar">
           {uploading ? "Uploading ..." : "Upload avatar"}
         </label>
         <input
@@ -41,7 +41,7 @@ export default function CommunityAvatarUpload({
             position: "absolute",
           }}
           type="file"
-          id="single"
+          id="community-avatar"
           accept="image/*"
           onChange={handleUploadFile}
           disabled={uploading}
