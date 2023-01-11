@@ -11,7 +11,7 @@ export default function CommunityCoverUpload({
   folderName,
   fileName,
 }: CommunityCoverUploadProps) {
-  const { handleUploadFile, uploading, signedUrl, downloadImageUrl } =
+  const { handleUploadFile, uploading, publicUrl, downloadImageUrl } =
     useImageUpload({
       bucket: "community",
       folder: folderName,
@@ -19,8 +19,8 @@ export default function CommunityCoverUpload({
     });
 
   async function handleOnSave() {
-    if (signedUrl) {
-      await updateCommunity(folderName, { cover_url: signedUrl });
+    if (publicUrl) {
+      await updateCommunity(folderName, { cover_url: publicUrl });
     }
   }
 
@@ -32,7 +32,7 @@ export default function CommunityCoverUpload({
         <CommunityCover src={downloadImageUrl ?? url} alt={alt} />
       ) : null}
       <div>
-        <label className="button primary block" htmlFor="single">
+        <label className="button primary block" htmlFor="community-cover">
           {uploading ? "Uploading ..." : "Upload cover"}
         </label>
         <input
@@ -41,7 +41,7 @@ export default function CommunityCoverUpload({
             position: "absolute",
           }}
           type="file"
-          id="single"
+          id="community-cover"
           accept="image/*"
           onChange={handleUploadFile}
           disabled={uploading}
