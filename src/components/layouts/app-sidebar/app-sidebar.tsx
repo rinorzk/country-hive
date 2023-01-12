@@ -2,30 +2,47 @@ import React from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import styles from "./app-sidebar.module.scss";
 import { appSidebarLinks } from "@/assets/mock/app-sidebar";
+import styles from "./app-sidebar.module.scss";
+import { AppSidebarProps } from "./types";
 
-export default function AppSidebar() {
+export default function AppSidebar({ subMenuLinks }: AppSidebarProps) {
   const router = useRouter();
 
-  function renderLink(link: { pathname: string; label: string }) {
+  function renderLink(pathname: string, label: string) {
     return (
       <Link
-        href={link.pathname}
+        href={pathname}
         className={classNames(
           styles.sidebarLink,
-          link.pathname === router.asPath && styles.acvtiveLink
+          pathname === router.asPath && styles.acvtiveLink
         )}
-        key={link.pathname}
+        key={pathname}
       >
-        {link.label}
+        {label}
       </Link>
     );
   }
 
+  function renderMenuLink(link: { pathname: string; label: string }) {
+    const label = subMenuLinks?.length ? link.label.slice(0, 1) : link.label;
+    return renderLink(link.pathname, label);
+  }
+
+  function renderSubMenuLink(link: { pathname: string; label: string }) {
+    return renderLink(link.pathname, link.label);
+  }
+
   return (
     <aside className={styles.aside}>
-      <div className={styles.wrapper}>{appSidebarLinks.map(renderLink)}</div>
+      <div className={classNames(!subMenuLinks?.length && styles.wrapper)}>
+        {appSidebarLinks.map(renderMenuLink)}
+      </div>
+      {subMenuLinks && (
+        <div className={styles.wrapper}>
+          {subMenuLinks.map(renderSubMenuLink)}
+        </div>
+      )}
     </aside>
   );
 }

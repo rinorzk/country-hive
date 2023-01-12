@@ -43,8 +43,17 @@ export default function Community({
     }
   }
 
+  const subMenuLinks = [
+    { label: "Intro", pathname: asPath },
+    { label: "Posts", pathname: `${asPath}/posts` },
+    { label: "Rooms", pathname: `${asPath}/rooms` },
+  ];
+
   return (
-    <AppLayout title={`${community.name} - Community`}>
+    <AppLayout
+      title={`${community.name} - Community`}
+      subMenuLinks={subMenuLinks}
+    >
       <CommunityHero
         cover_url={community.cover_url}
         avatar_url={community.avatar_url}
@@ -58,10 +67,6 @@ export default function Community({
           readOnly
         />
       ) : null}
-      <h5>Checkout posts</h5>
-      <Link href={`${asPath}/posts`}>posts</Link>
-      <br />
-      <Link href={`${asPath}/rooms`}>rooms</Link>
       {!userMember && (
         <button onClick={handleJoinCommunity}>Join Community</button>
       )}

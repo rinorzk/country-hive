@@ -1,8 +1,13 @@
 .aside {
   min-height: 100vh;
-  width: 300px;
+  width: 400px;
   border: 1px solid #ededed;
   padding-top: 100px;
+  display: flex;
+}
+
+.wrapper {
+  width: 100%;
 }
 
 .sidebarLink {
