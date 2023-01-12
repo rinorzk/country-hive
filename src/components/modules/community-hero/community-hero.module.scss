@@ -1,0 +1,17 @@
+.communityHero {
+  position: relative;
+  margin-bottom: 70px;
+}
+
+.avatarHolder {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  transform: translate(30px, -50%);
+  background-color: white;
+  border-radius: 50%;
+}
+
+.communityName {
+  margin-top: 100px;
+}

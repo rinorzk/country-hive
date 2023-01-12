@@ -17,7 +17,7 @@ export default function AppLayout({
       <AppHeader />
       <div className={styles.mainLayout}>
         <AppSidebar />
-        <main>{children}</main>
+        <main className={styles.main}>{children}</main>
       </div>
       <Footer />
     </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -11,8 +10,7 @@ import {
   getCommunityMemberServer,
 } from "@/base/lib/members";
 import { getCommunityServer } from "@/base/lib/community";
-import CommunityAvatar from "@/components/elements/community-avatar";
-import CommunityCover from "@/components/elements/community-cover";
+import CommunityHero from "@/components/modules/community-hero";
 
 const DynamicRichtextEditor = dynamic(
   () => import("@/components/sections/richtext-editor"),
@@ -47,16 +45,12 @@ export default function Community({
 
   return (
     <AppLayout title={`${community.name} - Community`}>
-      <h3>Community: {community.name}</h3>
-      <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
-      <p>Created by: {community.creator_id}</p>
-      <h4>Community intro:</h4>
-      {community.cover_url ? (
-        <CommunityCover src={community.cover_url} alt={community.name} />
-      ) : null}
-      {community.avatar_url ? (
-        <CommunityAvatar src={community.avatar_url} alt={community.name} />
-      ) : null}
+      <CommunityHero
+        cover_url={community.cover_url}
+        avatar_url={community.avatar_url}
+        name={community.name}
+      />
+      {/* <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p> */}
       {community.intro ? (
         <DynamicRichtextEditor
           content={community.intro}
