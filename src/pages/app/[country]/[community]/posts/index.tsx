@@ -25,6 +25,7 @@ export default function Posts({
   const [communityPosts, setCommunityPosts] = useState<Post[]>(posts);
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const { asPath } = useRouter();
+  const communityPath = asPath.replace("/posts", "");
 
   const handleNewPost = async (newPost: NewPost) => {
     const { data, status } = await addCommunityPost(newPost);
@@ -49,7 +50,11 @@ export default function Posts({
   }
 
   return (
-    <AppLayout title={`${community.name} - Posts`}>
+    <AppLayout
+      title={`${community.name} - Posts`}
+      type="community"
+      slug={communityPath}
+    >
       <h4>Checkout posts</h4>
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
 
