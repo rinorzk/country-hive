@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import AppLayout from "@/components/layouts/app-layout";
 import { useUser } from "@supabase/auth-helpers-react";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
@@ -9,9 +10,11 @@ import RoomChat from "@/components/sections/room-chat";
 
 export default function Room({ room }: { room: RoomType }) {
   const { user } = useUser();
+  const { asPath } = useRouter();
+  const communityPath = asPath.replace(`rooms/${room.slug}`, "");
 
   return (
-    <AppLayout title={room.title} type="community">
+    <AppLayout title={room.title} type="community" slug={communityPath}>
       <h4>{room.title}</h4>
       <RoomChat roomId={room.id} userId={user?.id} />
     </AppLayout>
