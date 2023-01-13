@@ -52,7 +52,8 @@ export default function Community({
   return (
     <AppLayout
       title={`${community.name} - Community`}
-      subMenuLinks={subMenuLinks}
+      type="community"
+      slug={asPath}
     >
       <CommunityHero
         cover_url={community.cover_url}

@@ -2,47 +2,43 @@ import React from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { appSidebarLinks } from "@/assets/mock/app-sidebar";
+import { appLinks, communityLinks } from "@/assets/mock/sidebar-links";
 import styles from "./app-sidebar.module.scss";
 import { AppSidebarProps } from "./types";
 
-export default function AppSidebar({ subMenuLinks }: AppSidebarProps) {
+export default function AppSidebar({ type, slug }: AppSidebarProps) {
   const router = useRouter();
 
-  function renderLink(pathname: string, label: string) {
+  function formatLinkWithSlug(link: { pathname: string; label: string }) {
+    return {
+      ...link,
+      pathname: slug + link.pathname,
+    };
+  }
+
+  const links = {
+    app: appLinks,
+    community: communityLinks.map(formatLinkWithSlug),
+  };
+
+  function renderMenuLink(link: { pathname: string; label: string }) {
     return (
       <Link
-        href={pathname}
+        href={link.pathname}
         className={classNames(
           styles.sidebarLink,
-          pathname === router.asPath && styles.acvtiveLink
+          link.pathname === router.asPath && styles.acvtiveLink
         )}
-        key={pathname}
+        key={link.pathname}
       >
-        {label}
+        {link.label}
       </Link>
     );
   }
 
-  function renderMenuLink(link: { pathname: string; label: string }) {
-    const label = subMenuLinks?.length ? link.label.slice(0, 1) : link.label;
-    return renderLink(link.pathname, label);
-  }
-
-  function renderSubMenuLink(link: { pathname: string; label: string }) {
-    return renderLink(link.pathname, link.label);
-  }
-
   return (
     <aside className={styles.aside}>
-      <div className={classNames(!subMenuLinks?.length && styles.wrapper)}>
-        {appSidebarLinks.map(renderMenuLink)}
-      </div>
-      {subMenuLinks && (
-        <div className={styles.wrapper}>
-          {subMenuLinks.map(renderSubMenuLink)}
-        </div>
-      )}
+      <div className={styles.wrapper}>{links[type]?.map(renderMenuLink)}</div>
     </aside>
   );
 }

@@ -38,7 +38,7 @@ export default function Country({
   }
 
   return (
-    <AppLayout title={`${country.toUpperCase()} - Communities`}>
+    <AppLayout title={`${country.toUpperCase()} - Communities`} type="app">
       <h2>Browse {country} communities</h2>
       <ul>
         {!!communitiesList.length && communitiesList.map(renderCommunityLink)}

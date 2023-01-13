@@ -12,7 +12,7 @@ export default function Post({ post }: { post: PostType }) {
   const { user } = useUser();
 
   return (
-    <AppLayout>
+    <AppLayout title={post?.title} type="community">
       <h4>{post?.title}</h4>
       <PostLikes
         likes={post.likes}

@@ -8,10 +8,10 @@ import { getCommunityRoomServer } from "@/base/lib/rooms";
 import RoomChat from "@/components/sections/room-chat";
 
 export default function Room({ room }: { room: RoomType }) {
-  const { user } = useUser()
-  
+  const { user } = useUser();
+
   return (
-    <AppLayout>
+    <AppLayout title={room.title} type="community">
       <h4>{room.title}</h4>
       <RoomChat roomId={room.id} userId={user?.id} />
     </AppLayout>

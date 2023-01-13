@@ -1,3 +1,4 @@
 export interface AppSidebarProps {
-  subMenuLinks: { label: string; pathname: string }[];
+  type: "app" | "community";
+  slug?: string;
 }

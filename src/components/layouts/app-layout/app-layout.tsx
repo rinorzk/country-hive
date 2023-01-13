@@ -10,14 +10,15 @@ export default function AppLayout({
   title,
   description,
   children,
-  subMenuLinks,
+  type,
+  slug,
 }: AppLayoutProps) {
   return (
     <div>
       <SEO title={title} description={description} />
       <AppHeader />
       <div className={styles.mainLayout}>
-        <AppSidebar subMenuLinks={subMenuLinks} />
+        <AppSidebar type={type} slug={slug} />
         <main className={styles.main}>{children}</main>
       </div>
       <Footer />

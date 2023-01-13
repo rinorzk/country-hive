@@ -1,4 +1,4 @@
-export const appSidebarLinks = [
+export const appLinks = [
   {
     pathname: "/app",
     label: "Home",
@@ -14,5 +14,20 @@ export const appSidebarLinks = [
   {
     pathname: "/app/messages",
     label: "Messages",
+  },
+];
+
+export const communityLinks = [
+  {
+    pathname: "",
+    label: "Intro",
+  },
+  {
+    pathname: "/posts",
+    label: "Posts",
+  },
+  {
+    pathname: "/rooms",
+    label: "Rooms",
   },
 ];

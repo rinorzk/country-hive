@@ -21,6 +21,7 @@ export default function Rooms({
   const [communityRooms, setCommunityRooms] = useState<Post[]>(rooms);
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const { asPath } = useRouter();
+  const communityPath = asPath.replace("/rooms", "");
 
   async function handleNewRoom(newRoom: NewRoom) {
     const { data, status } = await addCommunityRoom(newRoom);
@@ -39,7 +40,11 @@ export default function Rooms({
   }
 
   return (
-    <AppLayout title={`${community.name} - Rooms`}>
+    <AppLayout
+      title={`${community.name} - Rooms`}
+      type="community"
+      slug={communityPath}
+    >
       <h4>Checkout rooms</h4>
       <button onClick={() => setCreateModalOpen(true)}>Create room</button>
 

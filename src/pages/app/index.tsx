@@ -11,7 +11,10 @@ export default function App({ user }: { user: User }) {
   }
 
   return (
-    <AppLayout title="albotalk - check out the latest from you communities">
+    <AppLayout
+      title="albotalk - check out the latest from you communities"
+      type="app"
+    >
       <h2>ALBOTALK App</h2>
 
       <h3>FEED</h3>

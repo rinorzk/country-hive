@@ -1,7 +1,7 @@
 import React from "react";
+import Link from "next/link";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { supabaseClient } from "@supabase/auth-helpers-nextjs";
-import Link from "next/link";
 import AppLayout from "@/components/layouts/app-layout";
 import countries from "@/assets/mock/countries";
 import { Country } from "@/base/types/app";
@@ -24,7 +24,10 @@ export default function Discover({ user }: { user: User }) {
   }
 
   return (
-    <AppLayout title="albotalk - browse through communities of your country">
+    <AppLayout
+      title="albotalk - browse through communities of your country"
+      type="app"
+    >
       <h3>ALBOTALK App</h3>
       <p>{user.email}</p>
 
