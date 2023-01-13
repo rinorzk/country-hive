@@ -1,16 +1,16 @@
 import React from "react";
-import CommunityAvatar from "@/components/elements/community-avatar";
+import CommunityCover from "@/components/elements/community-cover";
 import { updateCommunity } from "@/base/lib/community";
 import { useImageUpload } from "@/base/hooks/use-image-upload";
-import styles from "./community-avatar-upload.module.scss";
-import { CommunityAvatarUploadProps } from "./types";
+import styles from "./community-cover-upload.module.scss";
+import { CommunityCoverUploadProps } from "./types";
 
-export default function CommunityAvatarUpload({
+export default function CommunityCoverUpload({
   url,
   alt,
   folderName,
   fileName,
-}: CommunityAvatarUploadProps) {
+}: CommunityCoverUploadProps) {
   const { handleUploadFile, uploading, publicUrl, downloadImageUrl } =
     useImageUpload({
       bucket: "community",
@@ -20,20 +20,20 @@ export default function CommunityAvatarUpload({
 
   async function handleOnSave() {
     if (publicUrl) {
-      await updateCommunity(folderName, { avatar_url: publicUrl });
+      await updateCommunity(folderName, { cover_url: publicUrl });
     }
   }
 
-  const hasAvatarUrl = downloadImageUrl || url;
+  const hasCoverUrl = downloadImageUrl || url;
 
   return (
     <div>
-      {hasAvatarUrl ? (
-        <CommunityAvatar src={downloadImageUrl ?? url} alt={alt} />
+      {hasCoverUrl ? (
+        <CommunityCover src={downloadImageUrl ?? url} alt={alt} />
       ) : null}
       <div>
-        <label className="button primary block" htmlFor="community-avatar">
-          {uploading ? "Uploading ..." : "Upload avatar"}
+        <label className="button primary block" htmlFor="community-cover">
+          {uploading ? "Uploading ..." : "Upload cover"}
         </label>
         <input
           style={{
@@ -41,7 +41,7 @@ export default function CommunityAvatarUpload({
             position: "absolute",
           }}
           type="file"
-          id="community-avatar"
+          id="community-cover"
           accept="image/*"
           onChange={handleUploadFile}
           disabled={uploading}

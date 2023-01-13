@@ -1,12 +1,11 @@
-.avatarHolder {
-  width: 150px;
-  height: 150px;
+.coverHolder {
+  width: 100%;
+  height: 300px;
   position: relative;
-  border-radius: 50%;
   border: 1px solid #efefef;
   overflow: hidden;
 }
 
-.avatar {
+.cover {
   object-fit: cover;
 }

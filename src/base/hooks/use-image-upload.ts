@@ -12,7 +12,7 @@ export function useImageUpload({
 }) {
   const [uploadFileUrl, setUploadFileUrl] = useState(null);
   const [downloadImageUrl, setDownloadImageUrl] = useState(null);
-  const [signedUrl, setSignedUrl] = useState(null);
+  const [publicUrl, setPublicUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -28,17 +28,17 @@ export function useImageUpload({
     setDownloadImageUrl(url);
   }
 
-  async function signUrlPath(path: string) {
+  async function getPublicUrl(path: string) {
     const { data, error } = await supabase.storage
       .from(bucket)
-      .createSignedUrl(path, 360);
+      .getPublicUrl(path);
 
-    setSignedUrl(data.signedURL);
+    setPublicUrl(data.publicURL);
   }
 
   async function setUploadedImage(path: string) {
     try {
-      await signUrlPath(path);
+      await getPublicUrl(path);
       await downloadImage(path);
     } catch (error) {
       console.log("Error downloading image: ", error);
@@ -59,7 +59,7 @@ export function useImageUpload({
       const filePath = `${folder}/${filename}`;
 
       let { error: uploadError } = await supabase.storage
-        .from("community-avatars")
+        .from(bucket)
         .upload(filePath, file, { upsert: true });
 
       if (uploadError) {
@@ -77,7 +77,7 @@ export function useImageUpload({
   return {
     handleUploadFile,
     uploading,
-    signedUrl,
+    publicUrl,
     downloadImageUrl,
   };
 }

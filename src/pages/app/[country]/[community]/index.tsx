@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -11,7 +10,7 @@ import {
   getCommunityMemberServer,
 } from "@/base/lib/members";
 import { getCommunityServer } from "@/base/lib/community";
-import CommunityAvatar from "@/components/elements/community-avatar";
+import CommunityHero from "@/components/modules/community-hero";
 
 const DynamicRichtextEditor = dynamic(
   () => import("@/components/sections/richtext-editor"),
@@ -45,14 +44,16 @@ export default function Community({
   }
 
   return (
-    <AppLayout title={`${community.name} - Community`}>
-      <h4>Community: {community.name}</h4>
-      <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p>
-      <p>Created by: {community.creator_id}</p>
-      <h4>Community intro:</h4>
-      {community.avatar_url ? (
-        <CommunityAvatar src={community.avatar_url} alt={community.name} />
-      ) : null}
+    <AppLayout
+      title={`${community.name} - Community`}
+      type="community"
+      slug={asPath}
+    >
+      <CommunityHero
+        cover_url={community.cover_url}
+        avatar_url={community.avatar_url}
+        name={community.name}
+      />
       {community.intro ? (
         <DynamicRichtextEditor
           content={community.intro}
@@ -60,10 +61,6 @@ export default function Community({
           readOnly
         />
       ) : null}
-      <h5>Checkout posts</h5>
-      <Link href={`${asPath}/posts`}>posts</Link>
-      <br />
-      <Link href={`${asPath}/rooms`}>rooms</Link>
       {!userMember && (
         <button onClick={handleJoinCommunity}>Join Community</button>
       )}

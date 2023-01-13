@@ -1,7 +1,8 @@
 import React from "react";
-import AppLayout from "@/components/layouts/app-layout";
 import { useUser } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
+import AppLayout from "@/components/layouts/app-layout";
 import { Post as PostType } from "@/base/types/db";
 import { getCommunityServer } from "@/base/lib/community";
 import { getCommunityPostWithLikesServer } from "@/base/lib/posts";
@@ -10,9 +11,11 @@ import PostLikes from "@/components/modules/post-likes";
 
 export default function Post({ post }: { post: PostType }) {
   const { user } = useUser();
+  const { asPath } = useRouter();
+  const communityPath = asPath.replace(`posts/${post.slug}`, "");
 
   return (
-    <AppLayout>
+    <AppLayout title={post?.title} type="community" slug={communityPath}>
       <h4>{post?.title}</h4>
       <PostLikes
         likes={post.likes}

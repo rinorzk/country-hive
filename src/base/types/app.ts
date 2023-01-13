@@ -22,6 +22,7 @@ export type NewCommunity = {
   slug: string;
   intro: {};
   avatar_url?: string;
+  cover_url?: string;
 };
 
 export type NewPost = {
