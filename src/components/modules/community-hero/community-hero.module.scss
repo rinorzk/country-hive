@@ -10,8 +10,15 @@
   transform: translate(30px, -50%);
   background-color: white;
   border-radius: 50%;
+  border: 1px solid #ededed;
 }
 
 .communityName {
   margin-top: 100px;
+}
+
+.coverSceleton {
+  width: 100%;
+  height: 300px;
+  background-color: #ededed;
 }

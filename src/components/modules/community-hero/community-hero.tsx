@@ -11,7 +11,11 @@ export default function CommunityCoverUpload({
 }: CommunityHeroProps) {
   return (
     <div className={styles.communityHero}>
-      {cover_url ? <CommunityCover src={cover_url} alt={name} /> : null}
+      {cover_url ? (
+        <CommunityCover src={cover_url} alt={name} />
+      ) : (
+        <div className={styles.coverSceleton} />
+      )}
       <div className={styles.avatarHolder}>
         {avatar_url ? <CommunityAvatar src={avatar_url} alt={name} /> : null}
       </div>

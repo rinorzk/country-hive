@@ -1,4 +1,4 @@
 export interface AppSidebarProps {
-  type: "app" | "community";
+  type: "app" | "community" | "settings";
   slug?: string;
 }

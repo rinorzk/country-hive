@@ -2,7 +2,11 @@ import React from "react";
 import Link from "next/link";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { appLinks, communityLinks } from "@/assets/mock/sidebar-links";
+import {
+  appLinks,
+  communityLinks,
+  communitySettings,
+} from "@/assets/mock/sidebar-links";
 import styles from "./app-sidebar.module.scss";
 import { AppSidebarProps } from "./types";
 
@@ -19,6 +23,7 @@ export default function AppSidebar({ type, slug }: AppSidebarProps) {
   const links = {
     app: appLinks,
     community: communityLinks.map(formatLinkWithSlug),
+    settings: communitySettings.map(formatLinkWithSlug),
   };
 
   function renderMenuLink(link: { pathname: string; label: string }) {

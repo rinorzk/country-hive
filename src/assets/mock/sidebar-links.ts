@@ -31,3 +31,10 @@ export const communityLinks = [
     label: "Rooms",
   },
 ];
+
+export const communitySettings = [
+  {
+    pathname: "/settings",
+    label: "Settings",
+  },
+];
