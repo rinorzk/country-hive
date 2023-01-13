@@ -43,12 +43,6 @@ export default function Community({
     }
   }
 
-  const subMenuLinks = [
-    { label: "Intro", pathname: asPath },
-    { label: "Posts", pathname: `${asPath}/posts` },
-    { label: "Rooms", pathname: `${asPath}/rooms` },
-  ];
-
   return (
     <AppLayout
       title={`${community.name} - Community`}
@@ -60,7 +54,6 @@ export default function Community({
         avatar_url={community.avatar_url}
         name={community.name}
       />
-      {/* <p>Created at: {moment(community.created_at).format("DD MMM YYYY")}</p> */}
       {community.intro ? (
         <DynamicRichtextEditor
           content={community.intro}
