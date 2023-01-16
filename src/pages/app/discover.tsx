@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import { supabaseClient } from "@supabase/auth-helpers-nextjs";
 import AppLayout from "@/components/layouts/app-layout";
 import countries from "@/assets/mock/countries";
 import { Country } from "@/base/types/app";
@@ -17,12 +16,6 @@ export default function Discover({ user }: { user: User }) {
     );
   }
 
-  async function handleSignOut() {
-    // TODO: make this redirect after signOut
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) console.log("error", error);
-  }
-
   return (
     <AppLayout
       title="albotalk - browse through communities of your country"
@@ -33,10 +26,6 @@ export default function Discover({ user }: { user: User }) {
 
       <h4>Browse all countries and check their communities</h4>
       <ul>{countries.europe.map(renderCountryLink)}</ul>
-
-      <br />
-
-      <button onClick={handleSignOut}>Sign out</button>
     </AppLayout>
   );
 }
