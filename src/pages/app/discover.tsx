@@ -21,10 +21,9 @@ export default function Discover({ user }: { user: User }) {
       title="albotalk - browse through communities of your country"
       type="app"
     >
-      <h3>ALBOTALK App</h3>
-      <p>{user.email}</p>
+      <h1>Discover</h1>
+      <p>Browse all countries and check their communities</p>
 
-      <h4>Browse all countries and check their communities</h4>
       <ul>{countries.europe.map(renderCountryLink)}</ul>
     </AppLayout>
   );
