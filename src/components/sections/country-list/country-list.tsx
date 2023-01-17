@@ -34,6 +34,12 @@ export default function CountriesList({ countries }: CountriesListProps) {
     setFilteredCountries(newCountryList);
   }
 
+  function renderNoResults() {
+    if (!filteredCountries.length) {
+      return <p>No countries found!</p>;
+    }
+  }
+
   return (
     <section>
       <input
@@ -44,6 +50,7 @@ export default function CountriesList({ countries }: CountriesListProps) {
       <ul className={styles.countryList}>
         {filteredCountries.map(renderCountryLink)}
       </ul>
+      {renderNoResults()}
     </section>
   );
 }
