@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import kebabCase from "lodash/kebabCase";
 import { Country } from "@/base/types/app";
@@ -6,6 +6,8 @@ import { CountriesListProps } from "./types";
 import styles from "./country-list.module.scss";
 
 export default function CountriesList({ countries }: CountriesListProps) {
+  const [filteredCountries, setFilteredCountries] = useState(countries);
+
   function renderCountryLink(country: Country) {
     return (
       <Link
@@ -19,7 +21,29 @@ export default function CountriesList({ countries }: CountriesListProps) {
     );
   }
 
+  function filterCountries(countries: Country[], query: string) {
+    return countries.filter(
+      (country) =>
+        country.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
+    );
+  }
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    const query = e.target.value;
+    const newCountryList = filterCountries(countries, query);
+    setFilteredCountries(newCountryList);
+  }
+
   return (
-    <ul className={styles.countryList}>{countries.map(renderCountryLink)}</ul>
+    <section>
+      <input
+        placeholder="Search your country"
+        onChange={handleSearch}
+        className={styles.search}
+      />
+      <ul className={styles.countryList}>
+        {filteredCountries.map(renderCountryLink)}
+      </ul>
+    </section>
   );
 }
