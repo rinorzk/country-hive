@@ -71,7 +71,7 @@ export async function getAllCommunitiesServer(
 ) {
   const { data, status } = await supabaseServerClient(ctx)
     .from<Community>("communities")
-    .select("name, id, slug")
+    .select("name, description, id, slug, avatar_url, cover_url")
     .eq("country", country);
 
   return { data, status };

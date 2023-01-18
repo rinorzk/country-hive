@@ -3,6 +3,7 @@ export type CommunityType = "public" | "restricted" | "private";
 export type Community = {
   id: string;
   name: string;
+  description: string;
   created_at: string;
   type: CommunityType;
   creator_id: string;

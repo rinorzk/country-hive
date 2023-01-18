@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Link from "next/link";
-import kebabCase from "lodash/kebabCase";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
 import { addCommunity, getAllCommunitiesServer } from "@/base/lib/community";
 import { NewCommunity } from "@/base/types/app";
+import CommunitiesList from "@/components/sections/communities-list";
 
 export default function Country({
   country,
@@ -27,25 +26,19 @@ export default function Country({
     if (status === 201) setCommunitiesList((prev) => [...prev, ...data]);
   }
 
-  function renderCommunityLink(cmt: Community) {
-    return (
-      <li key={cmt.id}>
-        <Link key={cmt.id} href={`/app/${kebabCase(country)}/${cmt.slug}`}>
-          {cmt.name}
-        </Link>
-      </li>
-    );
-  }
-
   return (
     <AppLayout title={`${country.toUpperCase()} - Communities`} type="app">
-      <h2>Browse {country} communities</h2>
-      <ul>
-        {!!communitiesList.length && communitiesList.map(renderCommunityLink)}
-      </ul>
+      <h1>{country} communities</h1>
+      <p>Browse all coommunities of {country}</p>
+      <div>
+        <input placeholder="Search communities" />
+        <button onClick={() => setCreateModalOpen(true)}>
+          Create community
+        </button>
+      </div>
 
-      <h3>Or create a new one</h3>
-      <button onClick={() => setCreateModalOpen(true)}>Create community</button>
+      <CommunitiesList communities={communitiesList} country={country} />
+
       <NewCommunityModal
         isOpen={createModalOpen}
         onClose={() => setCreateModalOpen(false)}
