@@ -12,7 +12,7 @@ export default function CommunityCard({
   return (
     <div className={styles.card}>
       <div className={styles.coverHolder}>
-        <CommunityCover src={cover_url || ""} alt={name} />
+        {cover_url ? <CommunityCover src={cover_url || ""} alt={name} /> : null}
       </div>
       <div className={styles.avatarHolder}>
         <img src={avatar_url} />

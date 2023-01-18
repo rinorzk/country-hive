@@ -26,18 +26,20 @@ export default function Country({
     if (status === 201) setCommunitiesList((prev) => [...prev, ...data]);
   }
 
+  function handleAddCommunityModal() {
+    setCreateModalOpen(true);
+  }
+
   return (
     <AppLayout title={`${country.toUpperCase()} - Communities`} type="app">
       <h1>{country} communities</h1>
       <p>Browse all coommunities of {country}</p>
-      <div>
-        <input placeholder="Search communities" />
-        <button onClick={() => setCreateModalOpen(true)}>
-          Create community
-        </button>
-      </div>
 
-      <CommunitiesList communities={communitiesList} country={country} />
+      <CommunitiesList
+        communities={communitiesList}
+        country={country}
+        createCommunityHandler={handleAddCommunityModal}
+      />
 
       <NewCommunityModal
         isOpen={createModalOpen}
