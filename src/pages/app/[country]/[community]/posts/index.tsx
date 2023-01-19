@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import { Community, Post } from "@/base/types/db";
@@ -11,8 +10,8 @@ import {
 } from "@/base/lib/posts";
 import NewPostModal from "@/components/sections/new-post-modal";
 import { NewPost } from "@/base/types/app";
-import PostLikes from "@/components/modules/post-likes";
 import CommunityHero from "@/components/modules/community-hero";
+import PostList from "@/components/sections/post-list";
 
 export default function Posts({
   user,
@@ -34,22 +33,6 @@ export default function Posts({
     if (data?.length) setCommunityPosts((prev) => [...prev, ...data]);
   };
 
-  function renderPostLink(post: Post) {
-    return (
-      <li key={post.id}>
-        <Link key={post.id} href={`${asPath}/${post.slug}`}>
-          <h5>{post.title}</h5>
-        </Link>
-        <PostLikes
-          likes={post.likes}
-          isLiked={post.is_liked}
-          postId={post.id}
-          memberId={user.id}
-        />
-      </li>
-    );
-  }
-
   return (
     <AppLayout
       title={`${community.name} - Posts`}
@@ -63,9 +46,7 @@ export default function Posts({
       />
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
 
-      <ul>
-        {communityPosts?.length > 0 ? communityPosts.map(renderPostLink) : null}
-      </ul>
+      <PostList posts={communityPosts} path={asPath} userId={user.id} />
 
       <NewPostModal
         isOpen={createModalOpen}
