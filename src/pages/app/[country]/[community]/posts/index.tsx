@@ -12,6 +12,7 @@ import {
 import NewPostModal from "@/components/sections/new-post-modal";
 import { NewPost } from "@/base/types/app";
 import PostLikes from "@/components/modules/post-likes";
+import CommunityHero from "@/components/modules/community-hero";
 
 export default function Posts({
   user,
@@ -55,7 +56,11 @@ export default function Posts({
       type="community"
       slug={communityPath}
     >
-      <h4>Checkout posts</h4>
+      <CommunityHero
+        name={`${community.name} / Posts`}
+        avatar_url={community.avatar_url}
+        cover_url={community.cover_url}
+      />
       <button onClick={() => setCreateModalOpen(true)}>Create post</button>
 
       <ul>

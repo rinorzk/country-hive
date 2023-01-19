@@ -4,7 +4,7 @@ import kebabCase from "lodash/kebabCase";
 import { Community } from "@/base/types/db";
 import { CommunitiesListProps } from "./types";
 import CommunityCard from "./community-card";
-import styles from "./communities-list.module.scss";
+import styles from "./community-list.module.scss";
 
 export default function CommunitiesList({
   communities,

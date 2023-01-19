@@ -5,7 +5,7 @@ import AppLayout from "@/components/layouts/app-layout";
 import NewCommunityModal from "@/components/sections/new-community-modal";
 import { addCommunity, getAllCommunitiesServer } from "@/base/lib/community";
 import { NewCommunity } from "@/base/types/app";
-import CommunitiesList from "@/components/sections/communities-list";
+import CommunitiesList from "@/components/sections/community-list";
 
 export default function Country({
   country,
