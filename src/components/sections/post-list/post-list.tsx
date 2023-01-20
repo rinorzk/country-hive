@@ -10,7 +10,7 @@ export default function PostList({ posts, path, userId }: PostListProps) {
     return (
       <li key={post.id}>
         <Link href={`${path}/${post.slug}`}>
-          <PostCard {...post} />
+          <PostCard post={post} userId={userId} />
         </Link>
       </li>
     );
