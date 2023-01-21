@@ -8,6 +8,7 @@ import { NewRoom } from "@/base/types/app";
 import { addCommunityRoom, getCommunityRoomsServer } from "@/base/lib/rooms";
 import NewRoomModal from "@/components/sections/new-room-modal";
 import RoomList from "@/components/sections/room-list";
+import CommunityHero from "@/components/modules/community-hero";
 
 export default function Rooms({
   user,
@@ -35,7 +36,11 @@ export default function Rooms({
       type="community"
       slug={communityPath}
     >
-      <h4>Checkout rooms</h4>
+      <CommunityHero
+        name={`${community.name} / Rooms`}
+        avatar_url={community.avatar_url}
+        cover_url={community.cover_url}
+      />
       <button onClick={() => setCreateModalOpen(true)}>Create room</button>
 
       <RoomList rooms={communityRooms} path={asPath} userId={user.id} />
