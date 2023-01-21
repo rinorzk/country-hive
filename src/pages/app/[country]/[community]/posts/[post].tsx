@@ -21,7 +21,7 @@ export default function Post({ post }: { post: PostType }) {
         likes={post.likes}
         isLiked={post.is_liked}
         postId={post.id}
-        memberId={user?.id}
+        userId={user?.id}
       />
       <PostComments postId={post?.id} userId={user?.id} />
     </AppLayout>
