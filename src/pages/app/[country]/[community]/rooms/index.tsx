@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { getUser, User, withPageAuth } from "@supabase/auth-helpers-nextjs";
-import { Community, Post, Room } from "@/base/types/db";
+import { Community, Room } from "@/base/types/db";
 import AppLayout from "@/components/layouts/app-layout";
 import { getCommunityServer } from "@/base/lib/community";
 import { NewRoom } from "@/base/types/app";
 import { addCommunityRoom, getCommunityRoomsServer } from "@/base/lib/rooms";
 import NewRoomModal from "@/components/sections/new-room-modal";
+import RoomList from "@/components/sections/room-list";
 
 export default function Rooms({
   user,
@@ -18,7 +18,7 @@ export default function Rooms({
   community: Community;
   rooms: Room[];
 }) {
-  const [communityRooms, setCommunityRooms] = useState<Post[]>(rooms);
+  const [communityRooms, setCommunityRooms] = useState<Room[]>(rooms);
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const { asPath } = useRouter();
   const communityPath = asPath.replace("/rooms", "");
@@ -27,16 +27,6 @@ export default function Rooms({
     const { data, status } = await addCommunityRoom(newRoom);
 
     if (data?.length) setCommunityRooms((prev) => [...prev, ...data]);
-  }
-
-  function renderRoomLink(room: Room) {
-    return (
-      <li key={room.id}>
-        <Link key={room.id} href={`${asPath}/${room.slug}`}>
-          {room.title}
-        </Link>
-      </li>
-    );
   }
 
   return (
@@ -48,9 +38,7 @@ export default function Rooms({
       <h4>Checkout rooms</h4>
       <button onClick={() => setCreateModalOpen(true)}>Create room</button>
 
-      <ul>
-        {communityRooms.length > 0 ? communityRooms.map(renderRoomLink) : null}
-      </ul>
+      <RoomList rooms={communityRooms} path={asPath} userId={user.id} />
 
       <NewRoomModal
         isOpen={createModalOpen}
