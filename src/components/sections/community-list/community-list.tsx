@@ -24,15 +24,26 @@ export default function CommunitiesList({
   }
 
   function filterCommunities(communitites: Community[], query: string) {
-    return communitites.filter(
-      (ctm) => ctm.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
-    );
+    return communitites.filter((ctm) => {
+      const keyword = query.toLowerCase();
+      const name = ctm.name.toLowerCase();
+      const description = ctm.description.toLowerCase();
+      return (
+        name.indexOf(keyword) !== -1 || description.indexOf(keyword) !== -1
+      );
+    });
   }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const query = e.target.value;
     const newCommunityList = filterCommunities(communities, query);
     setFilteredCommunities(newCommunityList);
+  }
+
+  function renderNoResults() {
+    if (!filteredCommunities.length) {
+      return <p>No communities found!</p>;
+    }
   }
 
   return (
@@ -48,6 +59,7 @@ export default function CommunitiesList({
       <ul className={styles.communityList}>
         {filteredCommunities.map(renderCommunityLink)}
       </ul>
+      {renderNoResults()}
     </section>
   );
 }

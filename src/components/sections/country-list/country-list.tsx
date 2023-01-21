@@ -22,10 +22,11 @@ export default function CountriesList({ countries }: CountriesListProps) {
   }
 
   function filterCountries(countries: Country[], query: string) {
-    return countries.filter(
-      (country) =>
-        country.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
-    );
+    return countries.filter((country) => {
+      const keyword = query.toLowerCase();
+      const name = country.name.toLowerCase();
+      return name.indexOf(keyword) !== -1;
+    });
   }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
