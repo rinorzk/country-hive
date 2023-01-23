@@ -1,5 +1,6 @@
 import React from "react";
 import { MessageFormProps } from "./types";
+import styles from "./message-form.module.scss";
 
 export default function MessageFrom({
   onSubmit,
@@ -9,9 +10,9 @@ export default function MessageFrom({
   clearReplyMessage,
 }: MessageFormProps) {
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={styles.messageForm}>
       {messageToReply ? (
-        <p>
+        <p className={styles.toReply}>
           &#8594; {messageToReply.content}{" "}
           <span onClick={clearReplyMessage}>x</span>
         </p>
@@ -21,6 +22,8 @@ export default function MessageFrom({
         name="message"
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
+        className={styles.input}
+        placeholder="Message in room"
       />
     </form>
   );

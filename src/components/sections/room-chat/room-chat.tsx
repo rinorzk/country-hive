@@ -1,15 +1,23 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useRef, useEffect } from "react";
 import { addRoomMessage } from "@/base/lib/messages";
 import { RoomMessage } from "@/base/types/db";
 import { useRoomMessages } from "@/base/hooks/use-room-messages";
 import { RoomChatProps } from "./types";
 import Message from "./message";
 import MessageFrom from "./message-form";
+import styles from "./room-chat.module.scss";
 
 export default function RoomChat({ roomId, userId }: RoomChatProps) {
+  const ref = useRef<HTMLUListElement>();
   const [newMessage, setNewMessage] = useState("");
   const [messageToReply, setMessageToReply] = useState<RoomMessage>(null);
   const { messages } = useRoomMessages({ roomId, userId });
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [messages]);
 
   function renderMessage(message: RoomMessage) {
     return (
@@ -37,9 +45,10 @@ export default function RoomChat({ roomId, userId }: RoomChatProps) {
   }
 
   return (
-    <div>
-      <h3>ROOM CHAT</h3>
-      <ul>{messages.length ? messages.map(renderMessage) : null}</ul>
+    <section className={styles.roomContainer}>
+      <ul className={styles.messageHolder} ref={ref}>
+        {messages.length ? messages.map(renderMessage) : null}
+      </ul>
       <MessageFrom
         newMessage={newMessage}
         setNewMessage={setNewMessage}
@@ -47,6 +56,6 @@ export default function RoomChat({ roomId, userId }: RoomChatProps) {
         clearReplyMessage={clearReplyMessage}
         onSubmit={handleSubmitMessage}
       />
-    </div>
+    </section>
   );
 }
