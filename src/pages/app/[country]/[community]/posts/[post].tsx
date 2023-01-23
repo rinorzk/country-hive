@@ -12,7 +12,7 @@ import PostLikes from "@/components/modules/post-likes";
 export default function Post({ post }: { post: PostType }) {
   const { user } = useUser();
   const { asPath } = useRouter();
-  const communityPath = asPath.replace(`posts/${post.slug}`, "");
+  const communityPath = asPath.replace(`/posts/${post.slug}`, "");
 
   return (
     <AppLayout title={post?.title} type="community" slug={communityPath}>

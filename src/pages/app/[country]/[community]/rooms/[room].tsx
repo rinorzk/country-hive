@@ -11,11 +11,12 @@ import RoomChat from "@/components/sections/room-chat";
 export default function Room({ room }: { room: RoomType }) {
   const { user } = useUser();
   const { asPath } = useRouter();
-  const communityPath = asPath.replace(`rooms/${room.slug}`, "");
+  const communityPath = asPath.replace(`/rooms/${room.slug}`, "");
 
   return (
     <AppLayout title={room.title} type="community" slug={communityPath}>
-      <h4>{room.title}</h4>
+      <h2>{room.title}</h2>
+      <p>{room.description}</p>
       <RoomChat roomId={room.id} userId={user?.id} />
     </AppLayout>
   );
