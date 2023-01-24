@@ -1,9 +1,15 @@
 import React, { FormEvent, useState } from "react";
 import Modal from "react-modal";
+import dynamic from "next/dynamic";
 import kebabCase from "lodash/kebabCase";
 import { customModalStyles } from "@/base/styles/modal-style";
 import styles from "./new-post-modal.module.scss";
 import { NewPostModalProps } from "./types";
+
+const DynamicRichtextEditor = dynamic(
+  () => import("@/components/sections/richtext-editor"),
+  { ssr: false }
+);
 
 export default function NewPostModal({
   isOpen,
@@ -13,14 +19,15 @@ export default function NewPostModal({
   communityId,
 }: NewPostModalProps) {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
 
   function handleAddPost(e: FormEvent) {
     e.preventDefault();
+
     try {
       handleNewPost({
         title,
-        description,
+        content,
         creator_id: userId,
         community_id: communityId,
         slug: kebabCase(title),
@@ -28,6 +35,12 @@ export default function NewPostModal({
       onClose();
     } catch (error) {
       console.log("error", error);
+    }
+  }
+
+  function handleContentOnSave(data: any) {
+    if (data) {
+      setContent(data);
     }
   }
 
@@ -40,7 +53,7 @@ export default function NewPostModal({
       ariaHideApp={false}
     >
       <h3>Create new post</h3>
-      <form onSubmit={handleAddPost}>
+      <form onSubmit={handleAddPost} className={styles.postModal}>
         <label htmlFor="title">Title:</label>
         <input
           id="title"
@@ -50,13 +63,7 @@ export default function NewPostModal({
           required
         />
         <br />
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          placeholder="Post description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
+        <DynamicRichtextEditor onSave={handleContentOnSave} />
         <button type="submit">Create post</button>
       </form>
     </Modal>
