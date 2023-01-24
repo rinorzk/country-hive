@@ -1,16 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import EditorJS from "@editorjs/editorjs";
 import { useThrottleCallback } from "@react-hook/throttle";
-import { updateCommunity } from "@/base/lib/community";
 import { editorJsTools } from "@/base/config/editor-js";
 import { RichTextEditorProps } from "@/components/sections/richtext-editor/types";
 
-export function useEditorJs({
-  communityId,
-  content,
-  readOnly,
-}: RichTextEditorProps) {
+export function useEditorJs({ content, readOnly }: RichTextEditorProps) {
   const editor = useRef(null);
+  const [editorData, setEditorData] = useState(null);
   const [saving, setSaving] = useState(false);
   const [doneSaving, setDoneSaving] = useState(false);
 
@@ -20,8 +16,7 @@ export function useEditorJs({
 
       setSaving(true);
       setDoneSaving(false);
-
-      await updateCommunity(communityId, { intro: data });
+      setEditorData(data);
 
       setTimeout(() => {
         setSaving(false);
@@ -58,5 +53,5 @@ export function useEditorJs({
     };
   }, [save, content]);
 
-  return { saving, doneSaving };
+  return { saving, doneSaving, editorData };
 }
