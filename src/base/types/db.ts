@@ -30,7 +30,7 @@ export type Post = {
   community_id: string;
   creator_id: string;
   title: string;
-  description?: string;
+  content?: string;
   created_at: string;
   slug: string;
   likes?: number;
