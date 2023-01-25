@@ -1,6 +1,7 @@
 import React from "react";
-import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+import { useUser } from "@supabase/auth-helpers-react";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import AppLayout from "@/components/layouts/app-layout";
 import { Post as PostType } from "@/base/types/db";
@@ -9,6 +10,11 @@ import { getCommunityPostWithLikesServer } from "@/base/lib/posts";
 import PostComments from "@/components/sections/post-comments";
 import PostLikes from "@/components/modules/post-likes";
 
+const DynamicRichtextEditor = dynamic(
+  () => import("@/components/sections/richtext-editor"),
+  { ssr: false }
+);
+
 export default function Post({ post }: { post: PostType }) {
   const { user } = useUser();
   const { asPath } = useRouter();
@@ -16,13 +22,16 @@ export default function Post({ post }: { post: PostType }) {
 
   return (
     <AppLayout title={post?.title} type="community" slug={communityPath}>
-      <h4>{post?.title}</h4>
+      <h1>{post?.title}</h1>
       <PostLikes
         likes={post.likes}
         isLiked={post.is_liked}
         postId={post.id}
         userId={user?.id}
       />
+      {post.content ? (
+        <DynamicRichtextEditor content={post.content} readOnly />
+      ) : null}
       <PostComments postId={post?.id} userId={user?.id} />
     </AppLayout>
   );
