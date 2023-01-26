@@ -19,7 +19,7 @@ export default function NewPostModal({
   communityId,
 }: NewPostModalProps) {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState({});
 
   function handleAddPost(e: FormEvent) {
     e.preventDefault();
