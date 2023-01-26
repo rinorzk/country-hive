@@ -44,7 +44,6 @@ export default function CommunitySettings({
   }
 
   async function handleIntroOnSave(data: any) {
-    console.log(data);
     if (data) {
       await updateCommunity(community.id, { intro: data });
     }
