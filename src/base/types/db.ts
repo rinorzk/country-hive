@@ -3,6 +3,7 @@ export type CommunityType = "public" | "restricted" | "private";
 export type Community = {
   id: string;
   name: string;
+  description: string;
   created_at: string;
   type: CommunityType;
   creator_id: string;
@@ -29,7 +30,7 @@ export type Post = {
   community_id: string;
   creator_id: string;
   title: string;
-  description?: string;
+  content?: {};
   created_at: string;
   slug: string;
   likes?: number;

@@ -1,0 +1,48 @@
+.card {
+  position: relative;
+  background-color: #dfdfdf;
+  padding-bottom: 20px;
+}
+
+.coverHolder > div {
+  height: 100% !important;
+}
+
+.coverHolder {
+  height: 100px;
+  background-color: #ededed;
+}
+
+.avatarHolder {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  transform: translate(20px, -50%);
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #ededed;
+}
+
+.avatarHolder > img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.name {
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+.description {
+  font-size: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  height: 57px;
+  padding: 0;
+}

@@ -1,5 +1,5 @@
 export interface RichTextEditorProps {
-  content: any;
-  communityId: string;
+  content?: any;
   readOnly?: boolean;
+  onSave?: (data: any) => void;
 }

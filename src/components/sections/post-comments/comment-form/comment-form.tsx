@@ -13,6 +13,7 @@ export default function CommentForm({
         name="comment"
         value={newComment}
         onChange={(e) => setNewComment(e.target.value)}
+        placeholder="Write your comment"
       />
     </form>
   );

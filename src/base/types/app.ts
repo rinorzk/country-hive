@@ -16,6 +16,7 @@ export type CommunityType = "public" | "restricted" | "private";
 export type NewCommunity = {
   name: string;
   country: string;
+  description: string;
   type: CommunityType;
   creator_id: string;
   created_at?: string;
@@ -29,7 +30,7 @@ export type NewPost = {
   community_id: string;
   creator_id: string;
   title: string;
-  description: string;
+  content: {};
   created_at?: string;
   slug: string;
 };

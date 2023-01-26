@@ -3,6 +3,7 @@ import { usePostComments } from "@/base/hooks/use-post-comments";
 import { addPostComment } from "@/base/lib/comments";
 import { PostComment } from "@/base/types/db";
 import { PostCommentsProps } from "./types";
+import styles from "./post-comments.module.scss";
 import CommentForm from "./comment-form";
 import Comment from "./comment";
 
@@ -36,14 +37,15 @@ export default function PostComments({ postId, userId }: PostCommentsProps) {
   }
 
   return (
-    <div>
-      POST COMMENTS
-      <ul>{comments.length ? comments.map(renderComment) : null}</ul>
+    <section className={styles.postComments}>
+      <ul className={styles.commentList}>
+        {comments.length ? comments.map(renderComment) : null}
+      </ul>
       <CommentForm
         onSubmit={handleSubmitComment}
         newComment={newComment}
         setNewComment={setNewComment}
       />
-    </div>
+    </section>
   );
 }
