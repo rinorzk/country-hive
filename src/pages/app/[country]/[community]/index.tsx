@@ -55,11 +55,7 @@ export default function Community({
         name={community.name}
       />
       {community.intro ? (
-        <DynamicRichtextEditor
-          content={community.intro}
-          communityId={community.id}
-          readOnly
-        />
+        <DynamicRichtextEditor content={community.intro} readOnly />
       ) : null}
       {!userMember && (
         <button onClick={handleJoinCommunity}>Join Community</button>

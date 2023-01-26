@@ -17,6 +17,7 @@ export default function NewCommunityModal({
   const [type, setType] = useState<"public" | "restricted" | "private">(
     "public"
   );
+  const [description, setDescription] = useState("");
 
   async function handleAddCommunity(e: FormEvent) {
     e.preventDefault();
@@ -28,6 +29,7 @@ export default function NewCommunityModal({
         country,
         slug: kebabCase(name),
         intro: {},
+        description,
       });
       onClose();
     } catch (error) {
@@ -65,6 +67,14 @@ export default function NewCommunityModal({
           <option value="public">Public</option>
           <option value="restricted">Restricted</option>
         </select>
+        <label htmlFor="description">Description:</label>
+        <input
+          id="description"
+          placeholder="Community description"
+          value={name}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
 
         <br />
 

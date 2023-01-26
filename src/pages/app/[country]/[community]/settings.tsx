@@ -2,7 +2,7 @@ import React from "react";
 import { getUser, withPageAuth } from "@supabase/auth-helpers-nextjs";
 import dynamic from "next/dynamic";
 import { Community } from "@/base/types/db";
-import { getCommunityServer } from "@/base/lib/community";
+import { getCommunityServer, updateCommunity } from "@/base/lib/community";
 import {
   addApprovedCommunityMember,
   getUserByUsername,
@@ -43,6 +43,12 @@ export default function CommunitySettings({
     const { data: approved } = await addApprovedCommunityMember(newMember);
   }
 
+  async function handleIntroOnSave(data: any) {
+    if (data) {
+      await updateCommunity(community.id, { intro: data });
+    }
+  }
+
   return (
     <AppLayout
       title={`${community.name} - Community`}
@@ -72,7 +78,7 @@ export default function CommunitySettings({
       <h4>Homepage:</h4>
       <DynamicRichtextEditor
         content={community.intro}
-        communityId={community.id}
+        onSave={handleIntroOnSave}
       />
     </AppLayout>
   );
