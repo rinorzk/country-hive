@@ -99,3 +99,15 @@ export async function updateCommunity(id: string, updatedColumns: {}) {
 
   return { data, error };
 }
+
+export async function getAllJoinedCommunities(
+  ctx: ServerSidePropsCtx,
+  userId: string
+) {
+  const { data, status } = await supabaseServerClient(ctx)
+    .from("community_members")
+    .select("communities(name, slug, description, avatar_url, cover_url)")
+    .eq("member_id", userId);
+
+  return { data, status };
+}

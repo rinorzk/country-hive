@@ -54,7 +54,9 @@ export default function CommunitiesList({
           onChange={handleSearch}
           className={styles.search}
         />
-        <button onClick={createCommunityHandler}>Create community</button>
+        {createCommunityHandler ? (
+          <button onClick={createCommunityHandler}>Create community</button>
+        ) : null}
       </div>
       <ul className={styles.communityList}>
         {filteredCommunities.map(renderCommunityLink)}
